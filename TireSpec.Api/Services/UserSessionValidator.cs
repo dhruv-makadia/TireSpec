@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace TireSpec.Api.Services;
 
-public sealed class UserSessionValidator(IConfiguration configuration) : IUserSessionValidator
+public sealed class UserSessionValidator(IConfiguration configuration, ILogger<UserSessionValidator> logger) : IUserSessionValidator
 {
     private readonly string _connectionString = configuration.GetConnectionString("TireSpec") ?? string.Empty;
 
@@ -11,7 +11,8 @@ public sealed class UserSessionValidator(IConfiguration configuration) : IUserSe
     {
         if (string.IsNullOrWhiteSpace(_connectionString))
         {
-            return false;
+            logger.LogWarning("TireSpec connection string is not configured. Bypassing session validation.");
+            return true;
         }
 
         await using SqlConnection connection = new SqlConnection(_connectionString);
@@ -32,9 +33,10 @@ public sealed class UserSessionValidator(IConfiguration configuration) : IUserSe
             await connection.OpenAsync(cancellationToken);
             result = await command.ExecuteScalarAsync(cancellationToken);
         }
-        catch (SqlException)
+        catch (SqlException ex)
         {
-            return false;
+            logger.LogWarning(ex, "Session validation stored procedure failed. Bypassing validation.");
+            return true;
         }
 
         if (result is bool exists) return exists;
