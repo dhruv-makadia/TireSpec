@@ -31,8 +31,8 @@
               class="details-btn"
               (btnClick)="toggleDetails(rec.id)"
               [icon]="isExpanded(rec.id) ? 'expand_less' : 'expand_more'"
+              [iconOnly]="true"
             >
-              {{ isExpanded(rec.id) ? 'Hide details' : 'View details' }}
             </app-button>
           </div>
         </div>

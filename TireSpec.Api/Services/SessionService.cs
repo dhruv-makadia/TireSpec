@@ -8,7 +8,7 @@ namespace TireSpec.Api.Services;
 
 public sealed class SessionService(IConfiguration configuration) : ISessionService
 {
-    private const string StoredProcedureName = "TireSpec.CreateUserSession";
+    private const string StoredProcedureName = "TireSpec.UserSessionCreate";
 
     public async Task<CreateSessionResponse> CreateSessionAsync(Guid websiteId, CancellationToken cancellationToken)
     {

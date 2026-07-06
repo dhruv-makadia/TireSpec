@@ -1,7 +1,7 @@
 <button
   [type]="type()"
   [disabled]="disabled() || loading()"
-  [class]="'custom-btn ' + variant() + (fullWidth() ? ' full-width' : '')"
+  [class]="'custom-btn ' + variant() + (fullWidth() ? ' full-width' : '') + (iconOnly() ? ' icon-only' : '')"
   (click)="onClick($event)"
 >
   @if (loading()) {
@@ -10,8 +10,10 @@
     @if (icon()) {
       <mat-icon class="btn-icon">{{ icon() }}</mat-icon>
     }
-    <span class="btn-label">
-      <ng-content></ng-content>
-    </span>
+    @if (!iconOnly()) {
+      <span class="btn-label">
+        <ng-content></ng-content>
+      </span>
+    }
   }
 </button>

@@ -100,6 +100,18 @@
     justify-content: center;
   }
 
+  &.icon-only {
+    padding: 6px;
+    min-width: unset;
+    border-radius: 50%;
+
+    .btn-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
   .btn-label {
     display: inline-flex;
     align-items: center;

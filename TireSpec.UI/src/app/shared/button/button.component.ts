@@ -20,6 +20,7 @@ export class ButtonComponent {
   readonly disabled = input<boolean>(false);
   readonly loading = input<boolean>(false);
   readonly icon = input<string | undefined>(undefined);
+  readonly iconOnly = input<boolean>(false);
   readonly fullWidth = input<boolean>(false);
 
   readonly btnClick = output<MouseEvent>();
