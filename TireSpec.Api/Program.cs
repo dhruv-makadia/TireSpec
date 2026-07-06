@@ -50,8 +50,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 IUserSessionValidator userSessionValidator = context.HttpContext.RequestServices.GetRequiredService<IUserSessionValidator>();
                 string? userSessionIdClaim = context.Principal?.FindFirst("UserSessionID")?.Value;
 
+                var authHeader = context.Request.Headers.Authorization.ToString();
+                var jwt = authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase)
+                    ? authHeader["Bearer ".Length..].Trim()
+                    : string.Empty;
+
                 if (!Guid.TryParse(userSessionIdClaim, out var userSessionId)
-                    || !await userSessionValidator.UserSessionExistsAsync(userSessionId, context.HttpContext.RequestAborted))
+                    || !await userSessionValidator.UserSessionExistsAsync(jwt, context.HttpContext.RequestAborted))
                 {
                     context.Fail("Invalid or expired session.");
                 }
