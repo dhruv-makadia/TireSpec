@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactService } from '../../../../services/contact.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { DialogLayoutComponent } from '../../../../shared/dialog-layout/dialog-layout.component';
+import { InputComponent } from '../../../../shared/input/input.component';
+import { ButtonComponent } from '../../../../shared/button/button.component';
 
 @Component({
   selector: 'app-contact-dialog',
   standalone: true,
   imports: [
     MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    DialogLayoutComponent,
+    InputComponent,
+    ButtonComponent,
   ],
   templateUrl: './contact-dialog.component.html',
   styleUrl: './contact-dialog.component.scss',

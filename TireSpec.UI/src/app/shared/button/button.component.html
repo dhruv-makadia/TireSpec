@@ -1,0 +1,17 @@
+<button
+  [type]="type()"
+  [disabled]="disabled() || loading()"
+  [class]="'custom-btn ' + variant() + (fullWidth() ? ' full-width' : '')"
+  (click)="onClick($event)"
+>
+  @if (loading()) {
+    <mat-spinner diameter="18" class="btn-spinner"></mat-spinner>
+  } @else {
+    @if (icon()) {
+      <mat-icon class="btn-icon">{{ icon() }}</mat-icon>
+    }
+    <span class="btn-label">
+      <ng-content></ng-content>
+    </span>
+  }
+</button>

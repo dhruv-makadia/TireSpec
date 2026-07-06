@@ -1,16 +1,16 @@
 import { Component, output, input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeviceService } from '../../../services/device.service';
 import { QrDialogComponent } from './qr-dialog/qr-dialog.component';
 import { ManualEntryDialogComponent } from './manual-entry-dialog/manual-entry-dialog.component';
 import { TireData } from '../../../models/api.models';
+import { ButtonComponent } from '../../../shared/button/button.component';
 
 @Component({
   selector: 'app-snap-tab',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatDialogModule],
+  imports: [MatIconModule, MatDialogModule, ButtonComponent],
   templateUrl: './snap-tab.component.html',
   styleUrl: './snap-tab.component.scss',
 })

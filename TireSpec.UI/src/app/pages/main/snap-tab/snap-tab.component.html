@@ -5,7 +5,13 @@
       <img [src]="capturedImage()" alt="Captured tire photo" class="preview-image" />
       <div class="preview-overlay">
         <span class="preview-label">Your tire photo</span>
-        <button mat-flat-button class="change-btn" (click)="onChangeImage()">Change</button>
+        <app-button
+          variant="secondary"
+          (btnClick)="onChangeImage()"
+          class="change-btn-wrapper"
+        >
+          Change
+        </app-button>
       </div>
     </div>
   </div>
@@ -43,8 +49,8 @@
       </label>
     </div>
 
-    <button class="manual-entry-link" (click)="openManualEntry()">
+    <app-button variant="text" (btnClick)="openManualEntry()">
       Enter tire data manually
-    </button>
+    </app-button>
   </div>
 }

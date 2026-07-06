@@ -1,15 +1,26 @@
-import { Component, input, output, signal, effect } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, input, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { QuoteResponse, TireScanResponse } from '../../../models/api.models';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
+import { BannerComponent } from '../../../shared/banner/banner.component';
+import { TireSpecsComponent } from '../../../shared/tire-specs/tire-specs.component';
+import { ButtonComponent } from '../../../shared/button/button.component';
+import { CheckboxComponent } from '../../../shared/checkbox/checkbox.component';
 
 @Component({
   selector: 'app-quote-tab',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatDialogModule, MatCheckboxModule],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    BannerComponent,
+    TireSpecsComponent,
+    ButtonComponent,
+    CheckboxComponent,
+  ],
   templateUrl: './quote-tab.component.html',
   styleUrl: './quote-tab.component.scss',
 })

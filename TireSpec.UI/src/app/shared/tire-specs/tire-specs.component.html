@@ -1,0 +1,19 @@
+<div class="tire-summary-card">
+  <div class="tire-size-badge">{{ scanData().tireSize }}</div>
+  <div class="tire-name">{{ scanData().brand }} {{ scanData().model }}</div>
+</div>
+
+<div class="spec-badges">
+  <div class="spec-badge">
+    <span class="spec-label">DOT YEAR</span>
+    <span class="spec-value">{{ scanData().dotYear || 'N/A' }}</span>
+  </div>
+  <div class="spec-badge">
+    <span class="spec-label">LOAD INDEX</span>
+    <span class="spec-value">{{ scanData().loadIndex || 'N/A' }}</span>
+  </div>
+  <div class="spec-badge">
+    <span class="spec-label">SPEED RATING</span>
+    <span class="spec-value">{{ scanData().speedRating || 'N/A' }}</span>
+  </div>
+</div>

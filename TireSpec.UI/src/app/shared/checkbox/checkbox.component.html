@@ -1,0 +1,8 @@
+<mat-checkbox
+  [checked]="checked()"
+  [disabled]="disabled()"
+  (change)="onChange($event)"
+  class="custom-checkbox"
+>
+  <ng-content></ng-content>
+</mat-checkbox>

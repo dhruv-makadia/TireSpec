@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -8,17 +7,20 @@ import * as signalR from '@microsoft/signalr';
 import { environment } from '../../../environments/environment';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { BannerComponent } from '../../shared/banner/banner.component';
+import { ButtonComponent } from '../../shared/button/button.component';
 
 @Component({
   selector: 'app-capture-page',
   standalone: true,
   imports: [
-    MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
     HeaderComponent,
     FooterComponent,
+    BannerComponent,
+    ButtonComponent,
   ],
   templateUrl: './capture.page.html',
   styleUrl: './capture.page.scss',

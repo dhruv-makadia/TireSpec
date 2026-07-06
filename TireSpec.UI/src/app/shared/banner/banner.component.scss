@@ -1,0 +1,57 @@
+.banner-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 10px;
+  padding: 14px 18px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &.success, &.confirm {
+    background: rgba(139, 195, 74, 0.1);
+    border: 1px solid rgba(139, 195, 74, 0.3);
+
+    .banner-icon {
+      color: var(--ts-accent);
+    }
+
+    .banner-text strong {
+      color: var(--ts-accent-dark);
+    }
+  }
+
+  &.info {
+    background: rgba(33, 150, 243, 0.1);
+    border: 1px solid rgba(33, 150, 243, 0.3);
+
+    .banner-icon {
+      color: #2196f3;
+    }
+
+    .banner-text strong {
+      color: #0b7dda;
+    }
+  }
+}
+
+.banner-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  strong {
+    font-size: 15px;
+  }
+
+  span {
+    font-size: 12px;
+    color: #666;
+  }
+}

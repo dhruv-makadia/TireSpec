@@ -1,36 +1,5 @@
-.dialog-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.phone-icon {
-  color: #e53935;
-  font-size: 22px;
-  width: 22px;
-  height: 22px;
-}
-
-.dialog-subtitle {
-  font-size: 13px;
-  color: #666;
-  margin: 0 0 16px 0;
-}
-
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.form-field {
-  width: 100%;
-}
-
-.send-btn {
-  background: var(--ts-dark) !important;
-  color: #fff !important;
-  font-weight: 500;
 }

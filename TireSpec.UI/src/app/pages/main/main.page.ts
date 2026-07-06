@@ -12,12 +12,8 @@ import { QuoteTabComponent } from './quote-tab/quote-tab.component';
 import { SessionService } from '../../services/session.service';
 import { TireScanService } from '../../services/tire-scan.service';
 import { QuoteService } from '../../services/quote.service';
-import {
-  TireData,
-  TireScanResponse,
-  QuoteRequest,
-  QuoteResponse,
-} from '../../models/api.models';
+import { ButtonComponent } from '../../shared/button/button.component';
+import { TireData, TireScanResponse, QuoteRequest, QuoteResponse } from '../../models/api.models';
 
 @Component({
   selector: 'app-main-page',
@@ -32,6 +28,7 @@ import {
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatButtonModule,
+    ButtonComponent,
   ],
   templateUrl: './main.page.html',
   styleUrl: './main.page.scss',
@@ -51,7 +48,7 @@ export class MainPage implements OnInit {
     private readonly sessionService: SessionService,
     private readonly tireScanService: TireScanService,
     private readonly quoteService: QuoteService,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +71,8 @@ export class MainPage implements OnInit {
       },
       error: (err) => {
         this.loading.set(false);
-        const message = err?.error?.message || 'Failed to create session. Invalid or expired access link.';
+        const message =
+          err?.error?.message || 'Failed to create session. Invalid or expired access link.';
         this.errorMessage.set(message);
       },
     });
@@ -90,36 +88,34 @@ export class MainPage implements OnInit {
 
   onIdentifyTire(): void {
     this.loading.set(true);
-    this.tireScanService
-      .scanTire({ imageDataUrl: this.capturedImage() })
-      .subscribe({
-        next: (result) => {
-          this.loading.set(false);
-          this.scanResult.set(result);
-          this.currentStep.set(2);
-        },
-        error: () => {
-          this.loading.set(false);
-          this.snackBar.open('Failed to scan tire. Please try again.', 'OK', { duration: 4000 });
-        },
-      });
+    this.tireScanService.scanTire({ imageDataUrl: this.capturedImage() }).subscribe({
+      next: (result) => {
+        this.loading.set(false);
+        this.scanResult.set(result);
+        this.currentStep.set(2);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.snackBar.open('Failed to scan tire. Please try again.', 'OK', { duration: 4000 });
+      },
+    });
   }
 
   onManualDataSubmitted(tireData: TireData): void {
     this.loading.set(true);
-    this.tireScanService
-      .scanTire({ manualData: tireData })
-      .subscribe({
-        next: (result) => {
-          this.loading.set(false);
-          this.scanResult.set(result);
-          this.currentStep.set(2);
-        },
-        error: () => {
-          this.loading.set(false);
-          this.snackBar.open('Failed to process tire data. Please try again.', 'OK', { duration: 4000 });
-        },
-      });
+    this.tireScanService.scanTire({ manualData: tireData }).subscribe({
+      next: (result) => {
+        this.loading.set(false);
+        this.scanResult.set(result);
+        this.currentStep.set(2);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.snackBar.open('Failed to process tire data. Please try again.', 'OK', {
+          duration: 4000,
+        });
+      },
+    });
   }
 
   onTireConfirmed(quoteRequest: QuoteRequest): void {

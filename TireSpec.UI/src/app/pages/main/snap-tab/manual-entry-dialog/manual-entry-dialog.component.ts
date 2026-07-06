@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TireData } from '../../../../models/api.models';
+import { DialogLayoutComponent } from '../../../../shared/dialog-layout/dialog-layout.component';
+import { InputComponent } from '../../../../shared/input/input.component';
+import { ButtonComponent } from '../../../../shared/button/button.component';
 
 @Component({
   selector: 'app-manual-entry-dialog',
   standalone: true,
   imports: [
     MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
     ReactiveFormsModule,
+    DialogLayoutComponent,
+    InputComponent,
+    ButtonComponent,
   ],
   templateUrl: './manual-entry-dialog.component.html',
   styleUrl: './manual-entry-dialog.component.scss',

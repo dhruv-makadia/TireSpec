@@ -10,10 +10,7 @@
         </div>
       }
       @case ('error') {
-        <div class="status-block error">
-          <mat-icon class="error-icon">error_outline</mat-icon>
-          <p>Invalid or expired capture link.</p>
-        </div>
+        <app-banner type="info" title="Error" message="Invalid or expired capture link." icon="error_outline"></app-banner>
       }
       @case ('ready') {
         <div class="camera-section">
@@ -21,17 +18,17 @@
           <h2>Take a photo of your tire</h2>
           <p class="hint">Position the sidewall of the tire in the frame for best results.</p>
 
-          <label class="capture-btn" mat-flat-button>
-            <mat-icon>camera_alt</mat-icon>
+          <app-button (btnClick)="fileInput.click()" icon="camera_alt">
             Open Camera
-            <input
-              type="file"
-              accept="image/*"
-              capture="environment"
-              (change)="onFileSelected($event)"
-              hidden
-            />
-          </label>
+          </app-button>
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            capture="environment"
+            (change)="onFileSelected($event)"
+            hidden
+          />
         </div>
       }
       @case ('captured') {
@@ -40,20 +37,20 @@
             <img [src]="capturedImage()" alt="Captured tire" class="preview-img" />
           }
           <div class="preview-actions">
-            <button mat-flat-button class="send-btn" (click)="sendPhoto()">
-              <mat-icon>send</mat-icon>
+            <app-button icon="send" (btnClick)="sendPhoto()" [fullWidth] = "true">
               Send to Desktop
-            </button>
-            <button mat-stroked-button (click)="retake()">Retake</button>
+            </app-button>
+            <app-button variant="stroked" (btnClick)="retake()" [fullWidth] = "true">Retake</app-button>
           </div>
         </div>
       }
       @case ('sent') {
-        <div class="status-block success">
-          <mat-icon class="success-icon">check_circle</mat-icon>
-          <h2>Photo Sent!</h2>
-          <p>Your tire photo has been sent to the desktop. You can close this tab.</p>
-        </div>
+        <app-banner
+          type="success"
+          title="Photo Sent!"
+          message="Your tire photo has been sent to the desktop. You can close this tab."
+          icon="check_circle"
+        ></app-banner>
       }
     }
   </div>

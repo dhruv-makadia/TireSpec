@@ -1,17 +1,24 @@
 import { Component, OnInit, OnDestroy, ElementRef, viewChild, signal } from '@angular/core';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import * as QRCode from 'qrcode';
 import * as signalR from '@microsoft/signalr';
 import { environment } from '../../../../../environments/environment';
 import { v4 as uuidv4 } from 'uuid';
+import { DialogLayoutComponent } from '../../../../shared/dialog-layout/dialog-layout.component';
+import { ButtonComponent } from '../../../../shared/button/button.component';
 
 @Component({
   selector: 'app-qr-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
+  imports: [
+    MatDialogModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    DialogLayoutComponent,
+    ButtonComponent,
+  ],
   templateUrl: './qr-dialog.component.html',
   styleUrl: './qr-dialog.component.scss',
 })

@@ -1,38 +1,26 @@
-<h2 mat-dialog-title class="dialog-title">
-  <mat-icon class="phone-icon">phone</mat-icon>
-  Get in touch
-</h2>
+<app-dialog-layout
+  title="Get in touch"
+  icon="phone"
+  subtitle="Leave your details and a dealer will follow up with a quote."
+>
+  <div body>
+    <form [formGroup]="form" class="contact-form">
+      <app-input label="Your name (optional)" formControlName="name" class="form-field"></app-input>
 
-<mat-dialog-content>
-  <p class="dialog-subtitle">Leave your details and a dealer will follow up with a quote.</p>
+      <app-input label="Phone number" formControlName="phoneNumber" type="tel" class="form-field"></app-input>
 
-  <form [formGroup]="form" class="contact-form">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Your name (optional)</mat-label>
-      <input matInput formControlName="name" />
-    </mat-form-field>
+      <app-input label="Email (optional)" formControlName="email" type="email" class="form-field"></app-input>
+    </form>
+  </div>
 
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Phone number</mat-label>
-      <input matInput formControlName="phoneNumber" type="tel" />
-      <mat-error>Phone number is required</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Email (optional)</mat-label>
-      <input matInput formControlName="email" type="email" />
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
-
-<mat-dialog-actions>
-  <button
-    mat-flat-button
-    class="send-btn"
+  <app-button actions variant="text" (btnClick)="cancel()">Cancel</app-button>
+  <app-button
+    actions
     [disabled]="form.invalid || submitting"
-    (click)="submit()"
+    [loading]="submitting"
+    (btnClick)="submit()"
+    class="send-btn"
   >
-    {{ submitting ? 'Sending...' : 'Send Request' }}
-  </button>
-  <button mat-button (click)="cancel()">Cancel</button>
-</mat-dialog-actions>
+    Send Request
+  </app-button>
+</app-dialog-layout>

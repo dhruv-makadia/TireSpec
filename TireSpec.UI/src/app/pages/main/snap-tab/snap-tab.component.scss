@@ -59,19 +59,9 @@
   color: var(--ts-dark);
 }
 
-.manual-entry-link {
+app-button[variant="text"] {
   margin-top: 20px;
-  background: none;
-  border: none;
-  color: #888;
-  font-size: 13px;
-  cursor: pointer;
   text-decoration: underline;
-  padding: 8px;
-
-  &:hover {
-    color: var(--ts-accent-dark);
-  }
 }
 
 // Image preview
@@ -112,9 +102,12 @@
   font-weight: 500;
 }
 
-.change-btn {
-  background: var(--ts-dark) !important;
-  color: #fff !important;
-  font-size: 12px;
-  border-radius: 6px;
+.change-btn-wrapper {
+  ::ng-deep .custom-btn {
+    background: var(--ts-dark) !important;
+    color: #fff !important;
+    font-size: 12px;
+    border-radius: 6px;
+    padding: 8px 12px;
+  }
 }

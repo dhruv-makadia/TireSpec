@@ -80,25 +80,6 @@
   color: var(--ts-accent);
 }
 
-.capture-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 32px;
-  background: var(--ts-accent);
-  color: var(--ts-dark);
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: all 0.2s;
-
-  &:hover {
-    background: var(--ts-accent-dark);
-    transform: translateY(-1px);
-  }
-}
 
 .preview-section {
   display: flex;
@@ -120,15 +101,10 @@
   display: flex;
   gap: 12px;
   width: 100%;
-}
 
-.send-btn {
-  flex: 1;
-  padding: 12px !important;
-  background: var(--ts-accent) !important;
-  color: var(--ts-dark) !important;
-  font-weight: 600 !important;
-  border-radius: 10px !important;
+  app-button {
+    flex: 1;
+  }
 }
 
 @media (max-width: 600px) {

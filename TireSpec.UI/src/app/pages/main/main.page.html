@@ -33,14 +33,14 @@
           />
           @if (capturedImage()) {
             <div class="identify-action">
-              <button
-                mat-flat-button
-                class="identify-btn"
-                (click)="onIdentifyTire()"
+              <app-button
+                [fullWidth]="true"
+                (btnClick)="onIdentifyTire()"
                 [disabled]="loading()"
+                icon="search"
               >
-                🔍 Identify My Tire
-              </button>
+                Identify My Tire
+              </app-button>
             </div>
           }
         }

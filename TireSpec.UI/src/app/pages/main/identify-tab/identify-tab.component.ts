@@ -1,22 +1,22 @@
 import { Component, input, output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TireScanResponse, QuoteRequest } from '../../../models/api.models';
+import { BannerComponent } from '../../../shared/banner/banner.component';
+import { InputComponent } from '../../../shared/input/input.component';
+import { ButtonComponent } from '../../../shared/button/button.component';
 
 @Component({
   selector: 'app-identify-tab',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatSelectModule,
-    MatButtonModule,
     MatIconModule,
+    BannerComponent,
+    InputComponent,
+    ButtonComponent,
   ],
   templateUrl: './identify-tab.component.html',
   styleUrl: './identify-tab.component.scss',
