@@ -1,0 +1,70 @@
+<div class="widget-container">
+  <app-header />
+
+  @if (errorMessage()) {
+    <div class="error-state">
+      <p class="error-text">{{ errorMessage() }}</p>
+    </div>
+    <app-footer />
+  } @else if (loading() && !sessionReady()) {
+    <div class="loading-state">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Initializing session...</p>
+    </div>
+    <app-footer />
+  } @else if (sessionReady()) {
+    <app-step-progress [currentStep]="currentStep()" [capturedImage]="capturedImage()" />
+
+    <div class="tab-content">
+      @if (loading()) {
+        <div class="loading-overlay">
+          <mat-spinner diameter="36"></mat-spinner>
+          <span>Processing...</span>
+        </div>
+      }
+
+      @switch (currentStep()) {
+        @case (1) {
+          <app-snap-tab
+            [capturedImage]="capturedImage()"
+            (imageSelected)="onImageSelected($event)"
+            (manualDataSubmitted)="onManualDataSubmitted($event)"
+            (changeImage)="onChangeImage()"
+          />
+          @if (capturedImage()) {
+            <div class="identify-action">
+              <button
+                mat-flat-button
+                class="identify-btn"
+                (click)="onIdentifyTire()"
+                [disabled]="loading()"
+              >
+                🔍 Identify My Tire
+              </button>
+            </div>
+          }
+        }
+        @case (2) {
+          @if (scanResult()) {
+            <app-identify-tab
+              [scanResult]="scanResult()!"
+              (confirmed)="onTireConfirmed($event)"
+              (rescan)="onRescan()"
+            />
+          }
+        }
+        @case (3) {
+          @if (quoteResult() && scanResult()) {
+            <app-quote-tab
+              [quoteData]="quoteResult()!"
+              [scanData]="scanResult()!"
+              (restart)="onRestart()"
+            />
+          }
+        }
+      }
+    </div>
+
+    <app-footer />
+  }
+</div>

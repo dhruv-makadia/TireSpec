@@ -1,0 +1,71 @@
+<div class="identify-content">
+  <div class="confirm-banner">
+    <mat-icon class="banner-icon">task_alt</mat-icon>
+    <div class="banner-text">
+      <strong>Confirm tire details</strong>
+      <span>Tap any field to correct it before we find replacements.</span>
+    </div>
+  </div>
+
+  <form [formGroup]="form" class="identify-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Brand</mat-label>
+        <input matInput formControlName="brand" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Model</mat-label>
+        <input matInput formControlName="model" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Tire Size</mat-label>
+        <input matInput formControlName="tireSize" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>DOT Code</mat-label>
+        <input matInput formControlName="dotCode" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>DOT Year</mat-label>
+        <input matInput formControlName="dotYear" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Load Index</mat-label>
+        <input matInput formControlName="loadIndex" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="form-field half-width">
+      <mat-label>Speed Rating</mat-label>
+      <input matInput formControlName="speedRating" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field full-width">
+      <mat-label>Condition</mat-label>
+      <mat-select formControlName="condition">
+        @for (cond of conditions; track cond) {
+          <mat-option [value]="cond">{{ cond === 'Unknown' ? '— unknown —' : cond }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+  <button
+    mat-flat-button
+    class="confirm-btn"
+    [disabled]="form.invalid"
+    (click)="onConfirm()"
+  >
+    Looks right — Find Replacements →
+  </button>
+
+  <button class="rescan-link" (click)="onRescan()">
+    ← Re-scan tire
+  </button>
+</div>

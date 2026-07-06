@@ -1,0 +1,68 @@
+<div class="quote-content">
+  <!-- Success Banner -->
+  <div class="success-banner">
+    <mat-icon class="banner-icon">check_circle</mat-icon>
+    <div class="banner-text">
+      <strong>Tire Identified</strong>
+      <span>AI matched your tire — here's your instant quote.</span>
+    </div>
+  </div>
+
+  <!-- Tire Summary -->
+  <div class="tire-summary-card">
+    <div class="tire-size-badge">{{ scanData().tireSize }}</div>
+    <div class="tire-name">{{ scanData().brand }} {{ scanData().model }}</div>
+  </div>
+
+  <!-- Tire Specs Badges -->
+  <div class="spec-badges">
+    <div class="spec-badge">
+      <span class="spec-label">DOT YEAR</span>
+      <span class="spec-value">{{ scanData().dotYear }}</span>
+    </div>
+    <div class="spec-badge">
+      <span class="spec-label">LOAD INDEX</span>
+      <span class="spec-value">{{ scanData().loadIndex }}</span>
+    </div>
+    <div class="spec-badge">
+      <span class="spec-label">SPEED RATING</span>
+      <span class="spec-value">{{ scanData().speedRating }}</span>
+    </div>
+  </div>
+
+  <!-- Recommendations -->
+  <h3 class="section-title">RECOMMENDED REPLACEMENTS</h3>
+  <div class="recommendations-list">
+    @for (rec of quoteData().recommendations; track rec.id; let i = $index) {
+      <div class="rec-item" [class.top-pick]="i === 0">
+        <div class="rec-rank">{{ i + 1 }}</div>
+        <div class="rec-info">
+          <span class="rec-name">{{ rec.name }}</span>
+          <span class="rec-warranty">{{ rec.warranty }}</span>
+        </div>
+        <span class="rec-price">{{ rec.price }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Actions -->
+  <button mat-flat-button class="book-btn">
+    <mat-icon>calendar_today</mat-icon>
+    Book Appointment
+  </button>
+
+  <div class="secondary-actions">
+    <button mat-stroked-button class="action-btn" (click)="openContactDialog()">
+      <mat-icon>phone</mat-icon>
+      Contact Me
+    </button>
+    <button mat-stroked-button class="action-btn" (click)="shareQuote()">
+      <mat-icon>share</mat-icon>
+      Share Quote
+    </button>
+  </div>
+
+  <button class="restart-link" (click)="onRestart()">
+    ← Analyze another tire
+  </button>
+</div>

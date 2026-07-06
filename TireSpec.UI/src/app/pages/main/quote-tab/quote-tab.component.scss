@@ -1,0 +1,236 @@
+.quote-content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+}
+
+.success-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(139, 195, 74, 0.1);
+  border: 1px solid rgba(139, 195, 74, 0.3);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.banner-icon {
+  color: var(--ts-accent);
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  strong {
+    font-size: 15px;
+    color: var(--ts-accent-dark);
+  }
+
+  span {
+    font-size: 12px;
+    color: #666;
+  }
+}
+
+.tire-summary-card {
+  background: var(--ts-dark);
+  border-radius: 10px;
+  padding: 16px 20px;
+  border-left: 4px solid var(--ts-accent);
+}
+
+.tire-size-badge {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.tire-name {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 2px;
+}
+
+.spec-badges {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.spec-badge {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.spec-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #999;
+  text-transform: uppercase;
+}
+
+.spec-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ts-dark);
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #999;
+  margin: 4px 0 0;
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.rec-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  transition: background 0.2s;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  &.top-pick {
+    background: rgba(139, 195, 74, 0.06);
+    border-left: 3px solid var(--ts-accent);
+  }
+
+  &:hover {
+    background: #fafafa;
+  }
+}
+
+.rec-rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: #eee;
+  color: #666;
+  flex-shrink: 0;
+
+  .top-pick & {
+    background: var(--ts-accent);
+    color: #fff;
+  }
+}
+
+.rec-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rec-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ts-dark);
+}
+
+.rec-warranty {
+  font-size: 11px;
+  color: #999;
+}
+
+.rec-price {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ts-dark);
+}
+
+.book-btn {
+  width: 100%;
+  padding: 14px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  background: var(--ts-accent) !important;
+  color: var(--ts-dark) !important;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background: var(--ts-accent-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 195, 74, 0.3);
+  }
+}
+
+.secondary-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.action-btn {
+  flex: 1;
+  border-radius: 10px !important;
+  padding: 10px !important;
+  font-size: 13px !important;
+  font-weight: 500;
+  color: var(--ts-dark) !important;
+  border-color: #ddd !important;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+  }
+
+  &:hover {
+    border-color: var(--ts-accent) !important;
+    background: rgba(139, 195, 74, 0.05) !important;
+  }
+}
+
+.restart-link {
+  align-self: center;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px;
+
+  &:hover {
+    color: var(--ts-accent-dark);
+  }
+}

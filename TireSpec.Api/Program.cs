@@ -10,13 +10,16 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddSingleton<IUserSessionValidator, UserSessionValidator>();
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(options =>
+{
+    options.MaximumReceiveMessageSize = 10 * 1024 * 1024; 
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("TireSpecClient", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173", "https://localhost:5173", "http://192.168.3.118:5173", "https://192.168.3.118:5173")
+            .WithOrigins("http://localhost:4200", "https://localhost:4200", "http://192.168.3.118:4200", "https://192.168.3.118:4200")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();

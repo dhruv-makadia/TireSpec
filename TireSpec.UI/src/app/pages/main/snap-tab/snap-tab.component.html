@@ -1,0 +1,50 @@
+@if (capturedImage()) {
+  <!-- Image preview state -->
+  <div class="image-preview-section">
+    <div class="preview-card">
+      <img [src]="capturedImage()" alt="Captured tire photo" class="preview-image" />
+      <div class="preview-overlay">
+        <span class="preview-label">Your tire photo</span>
+        <button mat-flat-button class="change-btn" (click)="onChangeImage()">Change</button>
+      </div>
+    </div>
+  </div>
+} @else {
+  <!-- Capture options -->
+  <div class="snap-content">
+    <p class="snap-prompt">How would you like to capture the tire?</p>
+    <div class="snap-actions">
+      @if (device.isMobile()) {
+        <!-- Mobile: Take Photo -->
+        <label class="snap-card">
+          <mat-icon class="snap-card-icon">photo_camera</mat-icon>
+          <span class="snap-card-label">Take Photo</span>
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            (change)="onFileSelected($event)"
+            hidden
+          />
+        </label>
+      } @else {
+        <!-- Desktop: Open Camera via QR Code -->
+        <button class="snap-card" (click)="openQrDialog()">
+          <mat-icon class="snap-card-icon">qr_code_2</mat-icon>
+          <span class="snap-card-label">Open Camera via QR Code</span>
+        </button>
+      }
+
+      <!-- Upload from device (both) -->
+      <label class="snap-card">
+        <mat-icon class="snap-card-icon">photo_camera</mat-icon>
+        <span class="snap-card-label">{{ device.isMobile() ? 'Upload from Device' : 'Upload from PC' }}</span>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+      </label>
+    </div>
+
+    <button class="manual-entry-link" (click)="openManualEntry()">
+      Enter tire data manually
+    </button>
+  </div>
+}

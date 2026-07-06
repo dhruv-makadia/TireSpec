@@ -1,0 +1,38 @@
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon class="phone-icon">phone</mat-icon>
+  Get in touch
+</h2>
+
+<mat-dialog-content>
+  <p class="dialog-subtitle">Leave your details and a dealer will follow up with a quote.</p>
+
+  <form [formGroup]="form" class="contact-form">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Your name (optional)</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Phone number</mat-label>
+      <input matInput formControlName="phoneNumber" type="tel" />
+      <mat-error>Phone number is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Email (optional)</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    mat-flat-button
+    class="send-btn"
+    [disabled]="form.invalid || submitting"
+    (click)="submit()"
+  >
+    {{ submitting ? 'Sending...' : 'Send Request' }}
+  </button>
+  <button mat-button (click)="cancel()">Cancel</button>
+</mat-dialog-actions>

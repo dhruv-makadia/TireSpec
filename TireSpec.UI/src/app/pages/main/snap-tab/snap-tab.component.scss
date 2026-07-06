@@ -1,0 +1,118 @@
+.snap-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+.snap-prompt {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.snap-actions {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.snap-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 28px 24px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: 170px;
+  max-width: 200px;
+  flex: 1;
+
+  &:hover {
+    border-color: var(--ts-accent);
+    box-shadow: 0 4px 16px rgba(139, 195, 74, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.snap-card-icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: var(--ts-dark);
+}
+
+.snap-card-label {
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--ts-dark);
+}
+
+.manual-entry-link {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 8px;
+
+  &:hover {
+    color: var(--ts-accent-dark);
+  }
+}
+
+// Image preview
+.image-preview-section {
+  padding: 20px 16px;
+}
+
+.preview-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid var(--ts-accent);
+}
+
+.preview-image {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.preview-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
+}
+
+.preview-label {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.change-btn {
+  background: var(--ts-dark) !important;
+  color: #fff !important;
+  font-size: 12px;
+  border-radius: 6px;
+}
