@@ -45,15 +45,6 @@
       <mat-label>Speed Rating</mat-label>
       <input matInput formControlName="speedRating" />
     </mat-form-field>
-
-    <mat-form-field appearance="outline" class="form-field full-width">
-      <mat-label>Condition</mat-label>
-      <mat-select formControlName="condition">
-        @for (cond of conditions; track cond) {
-          <mat-option [value]="cond">{{ cond === 'Unknown' ? '— unknown —' : cond }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
   </form>
 
   <button

@@ -26,7 +26,6 @@ export class IdentifyTabComponent implements OnInit {
   readonly confirmed = output<QuoteRequest>();
   readonly rescan = output<void>();
 
-  readonly conditions = ['Unknown', 'New', 'Good', 'Fair', 'Poor'];
   form!: FormGroup;
 
   constructor(private readonly fb: FormBuilder) {}
@@ -41,7 +40,6 @@ export class IdentifyTabComponent implements OnInit {
       dotYear: [data.dotYear],
       loadIndex: [data.loadIndex],
       speedRating: [data.speedRating],
-      condition: ['Unknown'],
     });
   }
 
