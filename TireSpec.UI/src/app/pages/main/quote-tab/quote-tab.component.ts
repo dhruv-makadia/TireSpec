@@ -1,14 +1,15 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, signal, effect } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { QuoteResponse, TireScanResponse } from '../../../models/api.models';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
 
 @Component({
   selector: 'app-quote-tab',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatDialogModule],
+  imports: [MatButtonModule, MatIconModule, MatDialogModule, MatCheckboxModule],
   templateUrl: './quote-tab.component.html',
   styleUrl: './quote-tab.component.scss',
 })
@@ -17,9 +18,43 @@ export class QuoteTabComponent {
   readonly scanData = input.required<TireScanResponse>();
   readonly restart = output<void>();
 
+  readonly selectedTires = signal<Set<string>>(new Set());
+  readonly expandedTires = signal<Set<string>>(new Set());
+
   constructor(private readonly dialog: MatDialog) {}
 
+  toggleSelection(id: string): void {
+    const current = new Set(this.selectedTires());
+    if (current.has(id)) {
+      current.delete(id);
+    } else {
+      current.add(id);
+    }
+    this.selectedTires.set(current);
+  }
+
+  isSelected(id: string): boolean {
+    return this.selectedTires().has(id);
+  }
+
+  toggleDetails(id: string): void {
+    const current = new Set(this.expandedTires());
+    if (current.has(id)) {
+      current.delete(id);
+    } else {
+      current.add(id);
+    }
+    this.expandedTires.set(current);
+  }
+
+  isExpanded(id: string): boolean {
+    return this.expandedTires().has(id);
+  }
+
   openContactDialog(): void {
+    if (this.selectedTires().size === 0) {
+      return;
+    }
     this.dialog.open(ContactDialogComponent, {
       width: '420px',
       panelClass: 'ts-dialog',

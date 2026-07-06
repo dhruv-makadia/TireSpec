@@ -12,7 +12,7 @@ builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddSingleton<IUserSessionValidator, UserSessionValidator>();
 builder.Services.AddSignalR(options =>
 {
-    options.MaximumReceiveMessageSize = 10 * 1024 * 1024; 
+    options.MaximumReceiveMessageSize = 100 * 1024 * 1024; 
 });
 builder.Services.AddCors(options =>
 {

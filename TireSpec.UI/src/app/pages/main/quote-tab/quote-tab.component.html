@@ -34,19 +34,49 @@
   <h3 class="section-title">RECOMMENDED REPLACEMENTS</h3>
   <div class="recommendations-list">
     @for (rec of quoteData().recommendations; track rec.id; let i = $index) {
-      <div class="rec-item" [class.top-pick]="i === 0">
-        <div class="rec-rank">{{ i + 1 }}</div>
-        <div class="rec-info">
-          <span class="rec-name">{{ rec.name }}</span>
-          <span class="rec-warranty">{{ rec.warranty }}</span>
+      <div class="rec-item-container">
+        <div class="rec-item-header">
+          <mat-checkbox
+            [checked]="isSelected(rec.id)"
+            (change)="toggleSelection(rec.id)"
+            class="rec-checkbox">
+          </mat-checkbox>
+          <div class="rec-name-container">
+            <span class="rec-name">{{ rec.name }}</span>
+          </div>
+          <div class="rec-actions-container">
+            <span class="rec-price">{{ rec.price }}</span>
+            <button
+              mat-button
+              class="details-btn"
+              (click)="toggleDetails(rec.id)">
+              {{ isExpanded(rec.id) ? 'Hide details' : 'View details' }}
+              <mat-icon>{{ isExpanded(rec.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
+            </button>
+          </div>
         </div>
-        <span class="rec-price">{{ rec.price }}</span>
+        <div class="rec-details-accordion" [class.expanded]="isExpanded(rec.id)">
+          <div class="rec-details-content">
+            <p class="rec-description">{{ rec.details }}</p>
+            <div class="rec-warranty-badge">
+              <mat-icon class="badge-icon">verified_user</mat-icon>
+              <span>{{ rec.warranty }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     }
   </div>
 
+  @if (selectedTires().size === 0) {
+    <div class="selection-hint">
+      <mat-icon class="hint-icon">info</mat-icon>
+      <span>Select at least one tire to request a quote.</span>
+    </div>
+  }
+
   <div class="secondary-actions">
-    <button mat-stroked-button class="action-btn" (click)="openContactDialog()">
+    <button mat-stroked-button class="action-btn" [disabled]="selectedTires().size === 0" (click)="openContactDialog()">
       <mat-icon>phone</mat-icon>
       Contact Me
     </button>
