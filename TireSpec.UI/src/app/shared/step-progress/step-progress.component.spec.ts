@@ -21,9 +21,8 @@ describe('StepProgressComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set selectedIndex to 0 and not complete SNAP when currentStep is 1 and capturedImage is null', async () => {
+  it('should set selectedIndex to 0 and not complete point step when currentStep is 1', async () => {
     fixture.componentRef.setInput('currentStep', 1);
-    fixture.componentRef.setInput('capturedImage', null);
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -37,25 +36,8 @@ describe('StepProgressComponent', () => {
     expect(steps[2].completed).toBe(false);
   });
 
-  it('should set selectedIndex to 1 and complete SNAP when currentStep is 1 and capturedImage is set', async () => {
-    fixture.componentRef.setInput('currentStep', 1);
-    fixture.componentRef.setInput('capturedImage', 'data:image/png;base64,abc');
-    fixture.detectChanges();
-    await fixture.whenStable();
-
-    const stepperDebug = fixture.debugElement.query(By.directive(MatStepper));
-    const stepper = stepperDebug.componentInstance as MatStepper;
-    expect(stepper.selectedIndex).toBe(1);
-
-    const steps = stepper.steps.toArray();
-    expect(steps[0].completed).toBe(true);
-    expect(steps[1].completed).toBe(false);
-    expect(steps[2].completed).toBe(false);
-  });
-
-  it('should set selectedIndex to 1 and complete SNAP when currentStep is 2', async () => {
+  it('should set selectedIndex to 1 and complete point step when currentStep is 2', async () => {
     fixture.componentRef.setInput('currentStep', 2);
-    fixture.componentRef.setInput('capturedImage', null);
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -69,9 +51,8 @@ describe('StepProgressComponent', () => {
     expect(steps[2].completed).toBe(false);
   });
 
-  it('should set selectedIndex to 2 and complete SNAP & IDENTIFY when currentStep is 3', async () => {
+  it('should set selectedIndex to 2 and complete point & snap steps when currentStep is 3', async () => {
     fixture.componentRef.setInput('currentStep', 3);
-    fixture.componentRef.setInput('capturedImage', null);
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -83,5 +64,20 @@ describe('StepProgressComponent', () => {
     expect(steps[0].completed).toBe(true);
     expect(steps[1].completed).toBe(true);
     expect(steps[2].completed).toBe(false);
+  });
+
+  it('should complete all steps when currentStep is 4', async () => {
+    fixture.componentRef.setInput('currentStep', 4);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const stepperDebug = fixture.debugElement.query(By.directive(MatStepper));
+    const stepper = stepperDebug.componentInstance as MatStepper;
+    expect(stepper.selectedIndex).toBe(2);
+
+    const steps = stepper.steps.toArray();
+    expect(steps[0].completed).toBe(true);
+    expect(steps[1].completed).toBe(true);
+    expect(steps[2].completed).toBe(true);
   });
 });

@@ -11,32 +11,21 @@ import { MatStepperModule } from '@angular/material/stepper';
 })
 export class StepProgressComponent {
   readonly currentStep = input<number>(1);
-  readonly capturedImage = input<string | null>(null);
 
   readonly steps = [
-    { label: 'SNAP', number: 1 },
-    { label: 'IDENTIFY', number: 2 },
-    { label: 'QUOTE', number: 3 },
+    { label: 'Point', number: 1 },
+    { label: 'Snap', number: 2 },
+    { label: 'Quote', number: 3 },
   ];
 
   readonly selectedIndex = computed(() => {
+    // 1-indexed currentStep mapped to 0-indexed selectedIndex, capped at index of last step.
     const step = this.currentStep();
-    const hasImage = !!this.capturedImage();
-    if (step === 1) {
-      return hasImage ? 1 : 0;
-    }
-    return step - 1;
+    return Math.max(0, Math.min(step - 1, this.steps.length - 1));
   });
 
   isStepCompleted(stepNumber: number): boolean {
     const step = this.currentStep();
-    const hasImage = !!this.capturedImage();
-    if (stepNumber === 1) {
-      return hasImage || step > 1;
-    }
-    if (stepNumber === 2) {
-      return step > 2;
-    }
-    return false;
+    return stepNumber < step;
   }
 }

@@ -51,7 +51,8 @@ export class SnapTabComponent {
 
   openManualEntry(): void {
     const dialogRef = this.dialog.open(ManualEntryDialogComponent, {
-      width: '480px',
+      width: '100%',
+      maxWidth: '480px',
       panelClass: 'ts-dialog',
     });
     dialogRef.afterClosed().subscribe((data: TireData | undefined) => {

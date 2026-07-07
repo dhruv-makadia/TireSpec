@@ -9,6 +9,20 @@
   }
 }
 
+.image-container {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tire-image {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
 .section-title {
   font-size: 11px;
   font-weight: 600;

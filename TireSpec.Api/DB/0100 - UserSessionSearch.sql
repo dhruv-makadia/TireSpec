@@ -12,7 +12,7 @@ AS
 
 	Modification History:
 *****************************************************************************************************/
-SET NOCOUNT ON;
+SET NOCOUNT ON
 
 DECLARE	@TpiError BIT = 0
 DECLARE	@TpiErrorDescription NVARCHAR ( MAX ) = 'Successfully executed.'
@@ -27,11 +27,7 @@ BEGIN
 	SELECT	@TpiError = 1
 		, @RaiseErrorSeverity = 16
 		, @RaiseErrorState = 1
-		, @CustomErrorMessage =
-		CASE
-			WHEN ( @JSONWebToken IS NULL ) THEN 'Error. From JSONWebToken cannot be NULL.'
-			ELSE 'Error. Invalid input parameters.'
-		END
+		, @CustomErrorMessage = 'Error. From JSONWebToken cannot be NULL.'
 		, @SqlErrorMessage = 'SQL Error = ''' + ISNULL ( CONVERT ( NVARCHAR ( MAX ), ERROR_NUMBER () ), 'Not a SQL Error' ) + ''''
 			+ ', Line = ''' + ISNULL ( CONVERT ( NVARCHAR ( MAX ), ERROR_LINE () ), 'Unknown Line' ) + ''''
 			+ ', Message = ''' + ISNULL ( ERROR_MESSAGE (), 'Not a SQL Message' ) + ''''

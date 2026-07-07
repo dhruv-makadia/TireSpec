@@ -1,4 +1,10 @@
 <div class="quote-content">
+  @if (capturedImage()) {
+    <div class="image-container">
+      <img [src]="capturedImage()" alt="Captured tire" class="tire-image" />
+    </div>
+  }
+
   <!-- Tire Specs -->
   <app-tire-specs [scanData]="scanData()"></app-tire-specs>
 
@@ -45,7 +51,7 @@
   @if (selectedTires().size === 0) {
     <div class="selection-hint">
       <mat-icon class="hint-icon">info</mat-icon>
-      <span>Select at least one tire to request a quote.</span>
+      <span>Select at least one tire to contact dealer or share quote.</span>
     </div>
   }
 
@@ -59,7 +65,13 @@
     >
       Contact Me
     </app-button>
-    <app-button [fullWidth]="true" variant="stroked" icon="share" (btnClick)="shareQuote()">
+    <app-button
+      [fullWidth]="true"
+      variant="stroked"
+      icon="share"
+      (btnClick)="shareQuote()"
+      [disabled]="selectedTires().size === 0"
+    >
       Share Quote
     </app-button>
   </div>
