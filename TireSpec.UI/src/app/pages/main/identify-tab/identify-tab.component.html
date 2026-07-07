@@ -1,0 +1,32 @@
+<div class="identify-content">
+  <form [formGroup]="form" class="identify-form">
+    <div class="form-row">
+      <app-input label="Brand" formControlName="brand" class="form-field"></app-input>
+      <app-input label="Model" formControlName="model" class="form-field"></app-input>
+    </div>
+
+    <div class="form-row">
+      <app-input label="Tire Size" formControlName="tireSize" class="form-field"></app-input>
+      <app-input label="DOT Code" formControlName="dotCode" class="form-field"></app-input>
+    </div>
+
+    <div class="form-row">
+      <app-input label="DOT Year" formControlName="dotYear" class="form-field"></app-input>
+      <app-input label="Load Index" formControlName="loadIndex" class="form-field"></app-input>
+    </div>
+
+    <app-input
+      label="Speed Rating"
+      formControlName="speedRating"
+      class="form-field half-width"
+    ></app-input>
+  </form>
+
+  <app-button [disabled]="form.invalid" [fullWidth]="true" (btnClick)="onConfirm()">
+    Looks right — Find Replacements
+  </app-button>
+
+  <app-button variant="text" (btnClick)="onRescan()" icon="keyboard_backspace">
+    Re-scan tire
+  </app-button>
+</div>

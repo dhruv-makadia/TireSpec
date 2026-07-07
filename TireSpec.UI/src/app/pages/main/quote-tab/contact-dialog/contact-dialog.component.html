@@ -1,0 +1,36 @@
+<app-dialog-layout
+  title="Get in touch"
+  icon="phone"
+  subtitle="Leave your details and a dealer will follow up with a quote."
+>
+  <div body>
+    <form [formGroup]="form" class="contact-form">
+      <app-input label="Your name (optional)" formControlName="name" class="form-field"></app-input>
+
+      <app-input
+        label="Phone number"
+        formControlName="phoneNumber"
+        type="tel"
+        class="form-field"
+      ></app-input>
+
+      <app-input
+        label="Email (optional)"
+        formControlName="email"
+        type="email"
+        class="form-field"
+      ></app-input>
+    </form>
+  </div>
+
+  <app-button actions variant="text" (btnClick)="cancel()">Cancel</app-button>
+  <app-button
+    actions
+    [disabled]="form.invalid || submitting"
+    [loading]="submitting"
+    (btnClick)="submit()"
+    class="send-btn"
+  >
+    Send Request
+  </app-button>
+</app-dialog-layout>

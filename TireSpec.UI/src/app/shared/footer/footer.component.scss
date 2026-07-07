@@ -1,0 +1,22 @@
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 6px;
+  padding: 12px 24px;
+  background: #fff;
+  border-top: 1px solid var(--ts-border);
+  border-radius: 0 0 12px 12px;
+}
+
+.footer-text {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: #999;
+}
+
+.footer-logo {
+  height: 16px;
+  width: auto;
+  object-fit: contain;
+}

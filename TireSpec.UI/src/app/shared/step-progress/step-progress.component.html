@@ -1,0 +1,15 @@
+<mat-stepper [selectedIndex]="selectedIndex()" labelPosition="bottom">
+  <ng-template matStepperIcon="edit">
+    <mat-icon>check</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="done">
+    <mat-icon>check</mat-icon>
+  </ng-template>
+  @for (step of steps; track step.number) {
+    <mat-step
+      [label]="step.label"
+      [completed]="isStepCompleted(step.number)"
+      [editable]="true"
+    ></mat-step>
+  }
+</mat-stepper>

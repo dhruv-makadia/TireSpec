@@ -1,0 +1,55 @@
+<app-dialog-layout title="Enter Tire Data Manually">
+  <div body>
+    <form [formGroup]="form" class="manual-form">
+      <div class="form-row">
+        <app-input
+          label="Brand"
+          formControlName="brand"
+          placeholder="e.g. Michelin"
+          class="form-field"
+        ></app-input>
+        <app-input
+          label="Model"
+          formControlName="model"
+          placeholder="e.g. Defender"
+          class="form-field"
+        ></app-input>
+      </div>
+
+      <app-input
+        label="Tire Size"
+        formControlName="tireSize"
+        placeholder="e.g. 225/60R17"
+        class="form-field full-width"
+      ></app-input>
+
+      <div class="form-row">
+        <app-input label="DOT Code" formControlName="dotCode" class="form-field"></app-input>
+        <app-input
+          label="DOT Year"
+          formControlName="dotYear"
+          placeholder="e.g. 2024"
+          class="form-field"
+        ></app-input>
+      </div>
+
+      <div class="form-row">
+        <app-input
+          label="Load Index"
+          formControlName="loadIndex"
+          placeholder="e.g. 99"
+          class="form-field"
+        ></app-input>
+        <app-input
+          label="Speed Rating"
+          formControlName="speedRating"
+          placeholder="e.g. H"
+          class="form-field"
+        ></app-input>
+      </div>
+    </form>
+  </div>
+
+  <app-button actions variant="text" (btnClick)="cancel()">Cancel</app-button>
+  <app-button actions [disabled]="form.invalid" (btnClick)="submit()">Submit</app-button>
+</app-dialog-layout>

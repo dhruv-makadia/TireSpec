@@ -1,0 +1,76 @@
+@use '@angular/material' as mat;
+
+// ── TireSpec Design Tokens ──────────────────────────────────
+:root {
+  --ts-dark: #1a2332;
+  --ts-dark-secondary: #243044;
+  --ts-accent: #8bc34a;
+  --ts-accent-dark: #7cb342;
+  --ts-accent-light: #aed581;
+  --ts-bg: #eceff1;
+  --ts-surface: #ffffff;
+  --ts-error: #e53935;
+  --ts-text: #333333;
+  --ts-text-secondary: #666666;
+  --ts-border: #e0e0e0;
+}
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$green-palette,
+        tertiary: mat.$cyan-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  color-scheme: light;
+  background: var(--ts-bg);
+  color: var(--ts-text);
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+// ── Global Material Overrides ───────────────────────────────
+.ts-dialog .mat-mdc-dialog-container {
+  border-radius: 12px !important;
+}
+
+.mat-mdc-snack-bar-container {
+  border-radius: 10px !important;
+}
+
+// ── Scrollbar Styling ───────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+// ── Responsive ──────────────────────────────────────────────
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+    align-items: flex-start;
+  }
+}

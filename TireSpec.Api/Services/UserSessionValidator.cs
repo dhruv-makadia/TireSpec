@@ -7,7 +7,7 @@ public sealed class UserSessionValidator(IConfiguration configuration, ILogger<U
 {
     private readonly string _connectionString = configuration.GetConnectionString("TireSpec") ?? string.Empty;
 
-    public async Task<bool> UserSessionExistsAsync(Guid userSessionId, CancellationToken cancellationToken = default)
+    public async Task<bool> UserSessionExistsAsync(string jwt, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(_connectionString))
         {
@@ -16,14 +16,14 @@ public sealed class UserSessionValidator(IConfiguration configuration, ILogger<U
         }
 
         await using SqlConnection connection = new SqlConnection(_connectionString);
-        await using SqlCommand command = new SqlCommand("TireSpec.UserSessionExists", connection)
+        await using SqlCommand command = new SqlCommand("TireSpec.UserSessionSearch", connection)
         {
             CommandType = CommandType.StoredProcedure
         };
 
-        command.Parameters.Add(new SqlParameter("@JSONWebToken", SqlDbType.UniqueIdentifier)
+        command.Parameters.Add(new SqlParameter("@JSONWebToken", SqlDbType.NVarChar)
         {
-            Value = userSessionId
+            Value = jwt
         });
 
         object? result;

@@ -1,0 +1,66 @@
+<div class="widget-container">
+  <app-header />
+
+  <div class="capture-content">
+    @switch (status()) {
+      @case ('connecting') {
+        <div class="status-block">
+          <mat-spinner diameter="36"></mat-spinner>
+          <p>Connecting to session...</p>
+        </div>
+      }
+      @case ('error') {
+        <app-banner
+          type="info"
+          title="Error"
+          message="Invalid or expired capture link."
+          icon="error_outline"
+        ></app-banner>
+      }
+      @case ('ready') {
+        <div class="camera-section">
+          <mat-icon class="camera-big-icon">photo_camera</mat-icon>
+          <h2>Take a photo of your tire</h2>
+          <p class="hint">Position the sidewall of the tire in the frame for best results.</p>
+
+          <app-button (btnClick)="fileInput.click()" icon="camera_alt"> Open Camera </app-button>
+          <label for="fileInput" class="visually-hidden">Select a tire photo</label>
+          <input
+            id="fileInput"
+            #fileInput
+            type="file"
+            accept="image/*"
+            capture="environment"
+            (change)="onFileSelected($event)"
+            hidden
+          />
+        </div>
+      }
+      @case ('captured') {
+        <div class="preview-section">
+          @if (capturedImage()) {
+            <img [src]="capturedImage()" alt="Captured tire" class="preview-img" />
+          }
+          <div class="preview-actions">
+            <app-button icon="send" (btnClick)="sendPhoto()" [fullWidth]="true">
+              Send to Desktop
+            </app-button>
+            <app-button variant="stroked" (btnClick)="retake()" [fullWidth]="true"
+              >Retake</app-button
+            >
+          </div>
+        </div>
+      }
+      @case ('sent') {
+        <app-banner
+          type="success"
+          title="Photo Sent!"
+          message="Your tire photo has been sent to the desktop. You can close this tab."
+          icon="check_circle"
+        ></app-banner>
+      }
+    }
+  </div>
+
+  <app-footer />
+</div>

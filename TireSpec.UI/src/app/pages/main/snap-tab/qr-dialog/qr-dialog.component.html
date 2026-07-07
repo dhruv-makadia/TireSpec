@@ -1,0 +1,30 @@
+<app-dialog-layout title="Scan with your phone" icon="qr_code_2" alignActions="center">
+  <div body>
+    <div class="qr-wrapper">
+      <canvas #qrCanvas></canvas>
+    </div>
+
+    <div class="status-area">
+      @switch (status()) {
+        @case ('generating') {
+          <mat-spinner diameter="24"></mat-spinner>
+          <span>Generating QR code...</span>
+        }
+        @case ('waiting') {
+          <mat-icon class="status-icon waiting">phone_iphone</mat-icon>
+          <span>Scan the QR code with your mobile camera</span>
+        }
+        @case ('connected') {
+          <mat-icon class="status-icon connected">check_circle</mat-icon>
+          <span class="connected-text">Mobile connected! Take a photo of your tire.</span>
+        }
+        @case ('received') {
+          <mat-icon class="status-icon received">done_all</mat-icon>
+          <span class="received-text">Photo received!</span>
+        }
+      }
+    </div>
+  </div>
+
+  <app-button actions variant="text" (btnClick)="close()">Cancel</app-button>
+</app-dialog-layout>

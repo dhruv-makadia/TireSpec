@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+mat-stepper {
+  background: transparent !important;
+  pointer-events: none;
+
+  ::ng-deep {
+    // Hide the empty step contents container entirely
+    .mat-horizontal-content-container {
+      padding: 0 !important;
+      display: none !important;
+    }
+
+    // Optional style adjustments for stepper layout
+    .mat-horizontal-stepper-header-container {
+      border-bottom: none !important;
+    }
+
+    // Set custom text sizes or labels if desired
+    .mat-step-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  }
+}

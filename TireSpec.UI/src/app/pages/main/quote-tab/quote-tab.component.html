@@ -1,0 +1,70 @@
+<div class="quote-content">
+  <!-- Tire Specs -->
+  <app-tire-specs [scanData]="scanData()"></app-tire-specs>
+
+  <!-- Recommendations -->
+  <h3 class="section-title">RECOMMENDED REPLACEMENTS</h3>
+  <div class="recommendations-list">
+    @for (rec of quoteData().recommendations; track rec.id; let i = $index) {
+      <div class="rec-item-container">
+        <div class="rec-item-header">
+          <app-checkbox
+            [checked]="isSelected(rec.id)"
+            (checkedChange)="toggleSelection(rec.id)"
+            class="rec-checkbox"
+          >
+          </app-checkbox>
+          <div class="rec-name-container">
+            <span class="rec-name">{{ rec.name }}</span>
+          </div>
+          <div class="rec-actions-container">
+            <span class="rec-price">{{ rec.price }}</span>
+            <app-button
+              variant="text"
+              class="details-btn"
+              (btnClick)="toggleDetails(rec.id)"
+              [icon]="isExpanded(rec.id) ? 'expand_less' : 'expand_more'"
+              [iconOnly]="true"
+            >
+            </app-button>
+          </div>
+        </div>
+        <div class="rec-details-accordion" [class.expanded]="isExpanded(rec.id)">
+          <div class="rec-details-content">
+            <p class="rec-description">{{ rec.details }}</p>
+            <div class="rec-warranty-badge">
+              <mat-icon class="badge-icon">verified_user</mat-icon>
+              <span>{{ rec.warranty }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (selectedTires().size === 0) {
+    <div class="selection-hint">
+      <mat-icon class="hint-icon">info</mat-icon>
+      <span>Select at least one tire to request a quote.</span>
+    </div>
+  }
+
+  <div class="secondary-actions">
+    <app-button
+      [fullWidth]="true"
+      variant="stroked"
+      icon="phone"
+      [disabled]="selectedTires().size === 0"
+      (btnClick)="openContactDialog()"
+    >
+      Contact Me
+    </app-button>
+    <app-button [fullWidth]="true" variant="stroked" icon="share" (btnClick)="shareQuote()">
+      Share Quote
+    </app-button>
+  </div>
+
+  <app-button variant="text" (btnClick)="onRestart()" icon="keyboard_backspace">
+    Analyze another tire
+  </app-button>
+</div>

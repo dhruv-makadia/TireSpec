@@ -10,13 +10,16 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddSingleton<IUserSessionValidator, UserSessionValidator>();
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(options =>
+{
+    options.MaximumReceiveMessageSize = 100 * 1024 * 1024; 
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("TireSpecClient", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173", "https://localhost:5173", "http://192.168.3.118:5173", "https://192.168.3.118:5173")
+            .WithOrigins("http://localhost:4200", "https://localhost:4200", "http://192.168.3.118:4200", "https://192.168.3.118:4200")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
@@ -46,9 +49,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             {
                 IUserSessionValidator userSessionValidator = context.HttpContext.RequestServices.GetRequiredService<IUserSessionValidator>();
                 string? userSessionIdClaim = context.Principal?.FindFirst("UserSessionID")?.Value;
+                string? expireClaim = context.Principal?.FindFirst("expire")?.Value;
+
+                var authHeader = context.Request.Headers.Authorization.ToString();
+                var jwt = authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase)
+                    ? authHeader["Bearer ".Length..].Trim()
+                    : string.Empty;
 
                 if (!Guid.TryParse(userSessionIdClaim, out var userSessionId)
-                    || !await userSessionValidator.UserSessionExistsAsync(userSessionId, context.HttpContext.RequestAborted))
+                    || string.IsNullOrEmpty(expireClaim)
+                    || !DateTimeOffset.TryParse(expireClaim, out var expireTime)
+                    || expireTime < DateTimeOffset.UtcNow
+                    || !await userSessionValidator.UserSessionExistsAsync(jwt, context.HttpContext.RequestAborted))
                 {
                     context.Fail("Invalid or expired session.");
                 }
