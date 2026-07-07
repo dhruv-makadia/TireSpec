@@ -1,7 +1,7 @@
 CREATE OR ALTER PROCEDURE TireSpec.UserSessionSidewallOCRXrefCreate
 (
-    @UserSessionID UNIQUEIDENTIFIER,
-    @SidewallOCRID INT
+    @UserSessionID UNIQUEIDENTIFIER
+    , @SidewallOCRID INT
 )
 AS
 /*****************************************************************************************************
@@ -13,7 +13,7 @@ AS
 
 	Modification History:
 *****************************************************************************************************/
-SET NOCOUNT ON;
+SET NOCOUNT ON
 
 DECLARE	@TpiError BIT = 0
 DECLARE	@TpiErrorDescription NVARCHAR ( MAX ) = 'Successfully executed.'
@@ -35,7 +35,7 @@ BEGIN
 		, @CustomErrorMessage =
 		CASE
 			WHEN ( @UserSessionID IS NULL ) THEN 'Error. From UserSessionID cannot be NULL.'
-			WHEN ( @SidewallOCRID IS NULL ) THEN 'Error. To WebsiteID cannot be NULL.'
+			WHEN ( @SidewallOCRID IS NULL ) THEN 'Error. To SidewallOCRID cannot be NULL.'
 			ELSE 'Error. Invalid input parameters.'
 		END
 		, @SqlErrorMessage = 'SQL Error = ''' + ISNULL ( CONVERT ( NVARCHAR ( MAX ), ERROR_NUMBER () ), 'Not a SQL Error' ) + ''''
@@ -55,7 +55,7 @@ BEGIN
 		(
 			@UserSessionID
 			, @SidewallOCRID
-		);
+		)
 	END TRY
 	BEGIN CATCH
 		SELECT	@TpiError = 1

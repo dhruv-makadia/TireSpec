@@ -34,3 +34,15 @@
 .full-width {
   width: 100%;
 }
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .half-width {
+    width: 100%;
+  }
+}
+

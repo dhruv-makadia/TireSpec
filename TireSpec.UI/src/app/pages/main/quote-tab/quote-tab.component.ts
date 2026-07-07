@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { QuoteResponse, TireScanResponse } from '@models';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-import { BannerComponent } from '@shared/banner/banner.component';
 import { TireSpecsComponent } from '@shared/tire-specs/tire-specs.component';
 import { ButtonComponent } from '@shared/button/button.component';
 import { CheckboxComponent } from '@shared/checkbox/checkbox.component';
@@ -16,7 +15,6 @@ import { CheckboxComponent } from '@shared/checkbox/checkbox.component';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    BannerComponent,
     TireSpecsComponent,
     ButtonComponent,
     CheckboxComponent,
@@ -75,7 +73,7 @@ export class QuoteTabComponent {
   shareQuote(): void {
     const data = this.scanData();
     const quotes = this.quoteData().recommendations;
-    const quoteLines = quotes.map((q, i) => (i + 1) + '. ' + q.name + ' - ' + q.price);
+    const quoteLines = quotes.map((q, i) => i + 1 + '. ' + q.name + ' - ' + q.price);
     const text = `TireSpec Quote\nTire: ${data.brand} ${data.model} (${data.tireSize})\n\nRecommended:\n${quoteLines.join('\n')}`;
 
     if (navigator.share) {

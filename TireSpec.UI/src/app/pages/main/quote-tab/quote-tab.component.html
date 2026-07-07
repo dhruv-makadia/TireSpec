@@ -45,7 +45,7 @@
   @if (selectedTires().size === 0) {
     <div class="selection-hint">
       <mat-icon class="hint-icon">info</mat-icon>
-      <span>Select at least one tire to request a quote.</span>
+      <span>Select at least one tire to contact dealer or share quote.</span>
     </div>
   }
 
@@ -59,7 +59,13 @@
     >
       Contact Me
     </app-button>
-    <app-button [fullWidth]="true" variant="stroked" icon="share" (btnClick)="shareQuote()">
+    <app-button
+      [fullWidth]="true"
+      variant="stroked"
+      icon="share"
+      (btnClick)="shareQuote()"
+      [disabled]="selectedTires().size === 0"
+    >
       Share Quote
     </app-button>
   </div>

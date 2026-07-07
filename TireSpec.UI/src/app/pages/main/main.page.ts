@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,6 +33,7 @@ import { TireData, TireScanResponse, QuoteRequest, QuoteResponse } from '@models
 })
 export class MainPage implements OnInit {
   readonly currentStep = signal(1);
+  readonly stepperStep = signal(1);
   readonly loading = signal(false);
   readonly sessionReady = signal(false);
   readonly capturedImage = signal<string | null>(null);
@@ -42,7 +43,6 @@ export class MainPage implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
     private readonly sessionService: SessionService,
     private readonly tireScanService: TireScanService,
     private readonly quoteService: QuoteService,
@@ -78,10 +78,12 @@ export class MainPage implements OnInit {
 
   onImageSelected(imageDataUrl: string): void {
     this.capturedImage.set(imageDataUrl);
+    this.stepperStep.set(2);
   }
 
   onChangeImage(): void {
     this.capturedImage.set(null);
+    this.stepperStep.set(1);
   }
 
   onIdentifyTire(): void {
@@ -91,6 +93,7 @@ export class MainPage implements OnInit {
         this.loading.set(false);
         this.scanResult.set(result);
         this.currentStep.set(2);
+        this.stepperStep.set(3);
       },
       error: () => {
         this.loading.set(false);
@@ -106,6 +109,7 @@ export class MainPage implements OnInit {
         this.loading.set(false);
         this.scanResult.set(result);
         this.currentStep.set(2);
+        this.stepperStep.set(3);
       },
       error: () => {
         this.loading.set(false);
@@ -123,6 +127,7 @@ export class MainPage implements OnInit {
         this.loading.set(false);
         this.quoteResult.set(result);
         this.currentStep.set(3);
+        this.stepperStep.set(4);
       },
       error: () => {
         this.loading.set(false);
@@ -135,6 +140,7 @@ export class MainPage implements OnInit {
     this.capturedImage.set(null);
     this.scanResult.set(null);
     this.currentStep.set(1);
+    this.stepperStep.set(1);
   }
 
   onRestart(): void {
@@ -142,5 +148,6 @@ export class MainPage implements OnInit {
     this.scanResult.set(null);
     this.quoteResult.set(null);
     this.currentStep.set(1);
+    this.stepperStep.set(1);
   }
 }

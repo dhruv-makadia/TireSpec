@@ -3,21 +3,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { TireScanResponse, QuoteRequest } from '@models';
-import { BannerComponent } from '@shared/banner/banner.component';
 import { InputComponent } from '@shared/input/input.component';
 import { ButtonComponent } from '@shared/button/button.component';
 
 @Component({
   selector: 'app-identify-tab',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatIconModule,
-    BannerComponent,
-    InputComponent,
-    ButtonComponent,
-  ],
+  imports: [ReactiveFormsModule, MatSelectModule, MatIconModule, InputComponent, ButtonComponent],
   templateUrl: './identify-tab.component.html',
   styleUrl: './identify-tab.component.scss',
 })

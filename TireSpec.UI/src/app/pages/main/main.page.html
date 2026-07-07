@@ -13,7 +13,7 @@
     </div>
     <app-footer />
   } @else if (sessionReady()) {
-    <app-step-progress [currentStep]="currentStep()" [capturedImage]="capturedImage()" />
+    <app-step-progress [currentStep]="stepperStep()" />
 
     <div class="tab-content">
       @if (loading()) {
