@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { TireScanResponse } from '../../models/api.models';
+import { TireScanResponse } from '@models';
 
 @Component({
   selector: 'app-tire-specs',

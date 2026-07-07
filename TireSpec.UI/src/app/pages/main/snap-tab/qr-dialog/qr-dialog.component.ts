@@ -4,10 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import * as QRCode from 'qrcode';
 import * as signalR from '@microsoft/signalr';
-import { environment } from '../../../../../environments/environment';
+import { environment } from '@env';
 import { v4 as uuidv4 } from 'uuid';
-import { DialogLayoutComponent } from '../../../../shared/dialog-layout/dialog-layout.component';
-import { ButtonComponent } from '../../../../shared/button/button.component';
+import { DialogLayoutComponent } from '@shared/dialog-layout/dialog-layout.component';
+import { ButtonComponent } from '@shared/button/button.component';
 
 @Component({
   selector: 'app-qr-dialog',

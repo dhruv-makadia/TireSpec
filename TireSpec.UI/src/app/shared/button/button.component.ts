@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './button.component.scss',
   host: {
     '[class.full-width]': 'fullWidth()',
-  }
+  },
 })
 export class ButtonComponent {
   readonly variant = input<'primary' | 'secondary' | 'text' | 'stroked'>('primary');

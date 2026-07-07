@@ -19,7 +19,8 @@
           <app-checkbox
             [checked]="isSelected(rec.id)"
             (checkedChange)="toggleSelection(rec.id)"
-            class="rec-checkbox">
+            class="rec-checkbox"
+          >
           </app-checkbox>
           <div class="rec-name-container">
             <span class="rec-name">{{ rec.name }}</span>
@@ -66,12 +67,7 @@
     >
       Contact Me
     </app-button>
-    <app-button
-      [fullWidth]="true"
-      variant="stroked"
-      icon="share"
-      (btnClick)="shareQuote()"
-    >
+    <app-button [fullWidth]="true" variant="stroked" icon="share" (btnClick)="shareQuote()">
       Share Quote
     </app-button>
   </div>

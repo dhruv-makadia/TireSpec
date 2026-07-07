@@ -55,7 +55,7 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   getErrorMessage(): string {
-    if (!this.control || !this.control.errors) return '';
+    if (!this.control?.errors) return '';
     if (this.control.errors['required']) {
       return `${this.label() || 'Field'} is required`;
     }

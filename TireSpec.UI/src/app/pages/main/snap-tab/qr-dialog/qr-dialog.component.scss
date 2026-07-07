@@ -22,10 +22,22 @@
   width: 22px;
   height: 22px;
 
-  &.waiting { color: #999; }
-  &.connected { color: var(--ts-accent); }
-  &.received { color: var(--ts-accent); }
+  &.waiting {
+    color: #999;
+  }
+  &.connected {
+    color: var(--ts-accent);
+  }
+  &.received {
+    color: var(--ts-accent);
+  }
 }
 
-.connected-text { color: var(--ts-accent-dark); font-weight: 500; }
-.received-text { color: var(--ts-accent-dark); font-weight: 600; }
+.connected-text {
+  color: var(--ts-accent-dark);
+  font-weight: 500;
+}
+.received-text {
+  color: var(--ts-accent-dark);
+  font-weight: 600;
+}

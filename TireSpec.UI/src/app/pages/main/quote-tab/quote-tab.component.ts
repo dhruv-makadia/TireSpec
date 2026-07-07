@@ -2,12 +2,12 @@ import { Component, input, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { QuoteResponse, TireScanResponse } from '../../../models/api.models';
+import { QuoteResponse, TireScanResponse } from '@models';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-import { BannerComponent } from '../../../shared/banner/banner.component';
-import { TireSpecsComponent } from '../../../shared/tire-specs/tire-specs.component';
-import { ButtonComponent } from '../../../shared/button/button.component';
-import { CheckboxComponent } from '../../../shared/checkbox/checkbox.component';
+import { BannerComponent } from '@shared/banner/banner.component';
+import { TireSpecsComponent } from '@shared/tire-specs/tire-specs.component';
+import { ButtonComponent } from '@shared/button/button.component';
+import { CheckboxComponent } from '@shared/checkbox/checkbox.component';
 
 @Component({
   selector: 'app-quote-tab',
@@ -75,7 +75,8 @@ export class QuoteTabComponent {
   shareQuote(): void {
     const data = this.scanData();
     const quotes = this.quoteData().recommendations;
-    const text = `TireSpec Quote\nTire: ${data.brand} ${data.model} (${data.tireSize})\n\nRecommended:\n${quotes.map((q, i) => `${i + 1}. ${q.name} - ${q.price}`).join('\n')}`;
+    const quoteLines = quotes.map((q, i) => (i + 1) + '. ' + q.name + ' - ' + q.price);
+    const text = `TireSpec Quote\nTire: ${data.brand} ${data.model} (${data.tireSize})\n\nRecommended:\n${quoteLines.join('\n')}`;
 
     if (navigator.share) {
       navigator.share({ title: 'TireSpec Quote', text });

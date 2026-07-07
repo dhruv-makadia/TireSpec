@@ -2,14 +2,10 @@
   <!-- Image preview state -->
   <div class="image-preview-section">
     <div class="preview-card">
-      <img [src]="capturedImage()" alt="Captured tire photo" class="preview-image" />
+      <img [src]="capturedImage()" alt="Captured tire" class="preview-image" />
       <div class="preview-overlay">
         <span class="preview-label">Your tire photo</span>
-        <app-button
-          variant="secondary"
-          (btnClick)="onChangeImage()"
-          class="change-btn-wrapper"
-        >
+        <app-button variant="secondary" (btnClick)="onChangeImage()" class="change-btn-wrapper">
           Change
         </app-button>
       </div>
@@ -44,7 +40,9 @@
       <!-- Upload from device (both) -->
       <label class="snap-card">
         <mat-icon class="snap-card-icon">insert_photo</mat-icon>
-        <span class="snap-card-label">{{ device.isMobile() ? 'Upload from Device' : 'Upload from PC' }}</span>
+        <span class="snap-card-label">{{
+          device.isMobile() ? 'Upload from Device' : 'Upload from PC'
+        }}</span>
         <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
       </label>
     </div>

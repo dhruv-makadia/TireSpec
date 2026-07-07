@@ -2,10 +2,10 @@ import { Component, input, output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { TireScanResponse, QuoteRequest } from '../../../models/api.models';
-import { BannerComponent } from '../../../shared/banner/banner.component';
-import { InputComponent } from '../../../shared/input/input.component';
-import { ButtonComponent } from '../../../shared/button/button.component';
+import { TireScanResponse, QuoteRequest } from '@models';
+import { BannerComponent } from '@shared/banner/banner.component';
+import { InputComponent } from '@shared/input/input.component';
+import { ButtonComponent } from '@shared/button/button.component';
 
 @Component({
   selector: 'app-identify-tab',

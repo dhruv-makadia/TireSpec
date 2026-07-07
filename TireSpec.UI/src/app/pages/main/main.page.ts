@@ -3,17 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
-import { HeaderComponent } from '../../shared/header/header.component';
-import { StepProgressComponent } from '../../shared/step-progress/step-progress.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
+import { HeaderComponent } from '@shared/header/header.component';
+import { StepProgressComponent } from '@shared/step-progress/step-progress.component';
+import { FooterComponent } from '@shared/footer/footer.component';
 import { SnapTabComponent } from './snap-tab/snap-tab.component';
 import { IdentifyTabComponent } from './identify-tab/identify-tab.component';
 import { QuoteTabComponent } from './quote-tab/quote-tab.component';
-import { SessionService } from '../../services/session.service';
-import { TireScanService } from '../../services/tire-scan.service';
-import { QuoteService } from '../../services/quote.service';
-import { ButtonComponent } from '../../shared/button/button.component';
-import { TireData, TireScanResponse, QuoteRequest, QuoteResponse } from '../../models/api.models';
+import { SessionService, TireScanService, QuoteService } from '@services';
+import { ButtonComponent } from '@shared/button/button.component';
+import { TireData, TireScanResponse, QuoteRequest, QuoteResponse } from '@models';
 
 @Component({
   selector: 'app-main-page',

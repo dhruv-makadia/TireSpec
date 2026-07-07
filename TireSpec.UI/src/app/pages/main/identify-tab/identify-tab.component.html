@@ -23,14 +23,14 @@
       <app-input label="Load Index" formControlName="loadIndex" class="form-field"></app-input>
     </div>
 
-    <app-input label="Speed Rating" formControlName="speedRating" class="form-field half-width"></app-input>
+    <app-input
+      label="Speed Rating"
+      formControlName="speedRating"
+      class="form-field half-width"
+    ></app-input>
   </form>
 
-  <app-button
-    [disabled]="form.invalid"
-    [fullWidth]="true"
-    (btnClick)="onConfirm()"
-  >
+  <app-button [disabled]="form.invalid" [fullWidth]="true" (btnClick)="onConfirm()">
     Looks right — Find Replacements
   </app-button>
 

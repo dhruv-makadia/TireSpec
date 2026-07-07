@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { ContactRequest, ContactResponse } from '../models/api.models';
+import { environment } from '@env';
+import { ContactRequest, ContactResponse } from '@models';
 
 @Injectable({ providedIn: 'root' })
 export class ContactService {

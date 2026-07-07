@@ -10,7 +10,7 @@ describe('StepProgressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StepProgressComponent, NoopAnimationsModule]
+      imports: [StepProgressComponent, NoopAnimationsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(StepProgressComponent);
@@ -30,7 +30,7 @@ describe('StepProgressComponent', () => {
     const stepperDebug = fixture.debugElement.query(By.directive(MatStepper));
     const stepper = stepperDebug.componentInstance as MatStepper;
     expect(stepper.selectedIndex).toBe(0);
-    
+
     const steps = stepper.steps.toArray();
     expect(steps[0].completed).toBe(false);
     expect(steps[1].completed).toBe(false);
@@ -85,4 +85,3 @@ describe('StepProgressComponent', () => {
     expect(steps[2].completed).toBe(false);
   });
 });
-

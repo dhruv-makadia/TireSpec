@@ -10,7 +10,12 @@
         </div>
       }
       @case ('error') {
-        <app-banner type="info" title="Error" message="Invalid or expired capture link." icon="error_outline"></app-banner>
+        <app-banner
+          type="info"
+          title="Error"
+          message="Invalid or expired capture link."
+          icon="error_outline"
+        ></app-banner>
       }
       @case ('ready') {
         <div class="camera-section">
@@ -18,10 +23,10 @@
           <h2>Take a photo of your tire</h2>
           <p class="hint">Position the sidewall of the tire in the frame for best results.</p>
 
-          <app-button (btnClick)="fileInput.click()" icon="camera_alt">
-            Open Camera
-          </app-button>
+          <app-button (btnClick)="fileInput.click()" icon="camera_alt"> Open Camera </app-button>
+          <label for="fileInput" class="visually-hidden">Select a tire photo</label>
           <input
+            id="fileInput"
             #fileInput
             type="file"
             accept="image/*"
@@ -37,10 +42,12 @@
             <img [src]="capturedImage()" alt="Captured tire" class="preview-img" />
           }
           <div class="preview-actions">
-            <app-button icon="send" (btnClick)="sendPhoto()" [fullWidth] = "true">
+            <app-button icon="send" (btnClick)="sendPhoto()" [fullWidth]="true">
               Send to Desktop
             </app-button>
-            <app-button variant="stroked" (btnClick)="retake()" [fullWidth] = "true">Retake</app-button>
+            <app-button variant="stroked" (btnClick)="retake()" [fullWidth]="true"
+              >Retake</app-button
+            >
           </div>
         </div>
       }

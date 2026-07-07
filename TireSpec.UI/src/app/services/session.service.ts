@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { CreateSessionRequest, CreateSessionResponse } from '../models/api.models';
+import { environment } from '@env';
+import { CreateSessionRequest, CreateSessionResponse } from '@models';
 
 @Injectable({ providedIn: 'root' })
 export class SessionService {
@@ -13,13 +13,13 @@ export class SessionService {
 
   createSession(websiteId: string): Observable<CreateSessionResponse> {
     const body: CreateSessionRequest = { websiteId };
-    return this.http.post<CreateSessionResponse>(`${this.apiUrl}/create`, body).pipe(
-      tap((response) => this.storeToken(response.jwt, response.expire))
-    );
+    return this.http
+      .post<CreateSessionResponse>(`${this.apiUrl}/create`, body)
+      .pipe(tap((response) => this.storeToken(response.jwt, response.expire)));
   }
 
   getToken(): string | null {
-    const match = document.cookie.match(new RegExp(`(?:^|; )${this.cookieName}=([^;]*)`));
+    const match = new RegExp(new RegExp(`(?:^|; )${this.cookieName}=([^;]*)`)).exec(document.cookie);
     return match ? decodeURIComponent(match[1]) : null;
   }
 
@@ -33,7 +33,6 @@ export class SessionService {
 
   private storeToken(jwt: string, expire: string): void {
     const expireDate = new Date(expire);
-    document.cookie =
-      `${this.cookieName}=${encodeURIComponent(jwt)}; path=/; expires=${expireDate.toUTCString()}; SameSite=Strict`;
+    document.cookie = `${this.cookieName}=${encodeURIComponent(jwt)}; path=/; expires=${expireDate.toUTCString()}; SameSite=Strict`;
   }
 }

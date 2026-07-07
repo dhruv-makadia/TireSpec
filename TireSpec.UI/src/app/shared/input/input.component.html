@@ -1,7 +1,9 @@
 <mat-form-field appearance="outline" class="custom-form-field">
   <mat-label>{{ label() }}</mat-label>
   <input
+    id="input-field"
     matInput
+    [attr.aria-label]="label()"
     [type]="type()"
     [placeholder]="placeholder()"
     [value]="value"

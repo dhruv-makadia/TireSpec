@@ -4,11 +4,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import * as signalR from '@microsoft/signalr';
-import { environment } from '../../../environments/environment';
-import { HeaderComponent } from '../../shared/header/header.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
-import { BannerComponent } from '../../shared/banner/banner.component';
-import { ButtonComponent } from '../../shared/button/button.component';
+import { environment } from '@env';
+import { HeaderComponent } from '@shared/header/header.component';
+import { FooterComponent } from '@shared/footer/footer.component';
+import { BannerComponent } from '@shared/banner/banner.component';
+import { ButtonComponent } from '@shared/button/button.component';
 
 @Component({
   selector: 'app-capture-page',
@@ -34,7 +34,7 @@ export class CapturePage implements OnInit, OnDestroy {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class CapturePage implements OnInit, OnDestroy {
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
+    if (input.files?.[0]) {
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
         this.capturedImage.set(e.target?.result as string);
@@ -91,7 +91,8 @@ export class CapturePage implements OnInit, OnDestroy {
       .withAutomaticReconnect()
       .build();
 
-    this.hubConnection.start()
+    this.hubConnection
+      .start()
       .then(() => {
         this.hubConnection?.invoke('JoinSession', this.sessionKey);
         this.status.set('ready');

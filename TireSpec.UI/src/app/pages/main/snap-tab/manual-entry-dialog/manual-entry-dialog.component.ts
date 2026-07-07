@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TireData } from '../../../../models/api.models';
-import { DialogLayoutComponent } from '../../../../shared/dialog-layout/dialog-layout.component';
-import { InputComponent } from '../../../../shared/input/input.component';
-import { ButtonComponent } from '../../../../shared/button/button.component';
+import { TireData } from '@models';
+import { DialogLayoutComponent } from '@shared/dialog-layout/dialog-layout.component';
+import { InputComponent } from '@shared/input/input.component';
+import { ButtonComponent } from '@shared/button/button.component';
 
 @Component({
   selector: 'app-manual-entry-dialog',
@@ -24,7 +24,7 @@ export class ManualEntryDialogComponent {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly dialogRef: MatDialogRef<ManualEntryDialogComponent>
+    private readonly dialogRef: MatDialogRef<ManualEntryDialogComponent>,
   ) {
     this.form = this.fb.group({
       brand: ['', Validators.required],

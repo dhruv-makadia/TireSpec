@@ -1,11 +1,11 @@
 import { Component, output, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { DeviceService } from '../../../services/device.service';
+import { DeviceService } from '@services';
 import { QrDialogComponent } from './qr-dialog/qr-dialog.component';
 import { ManualEntryDialogComponent } from './manual-entry-dialog/manual-entry-dialog.component';
-import { TireData } from '../../../models/api.models';
-import { ButtonComponent } from '../../../shared/button/button.component';
+import { TireData } from '@models';
+import { ButtonComponent } from '@shared/button/button.component';
 
 @Component({
   selector: 'app-snap-tab',
@@ -22,12 +22,12 @@ export class SnapTabComponent {
 
   constructor(
     readonly device: DeviceService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
   ) {}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
+    if (input.files?.[0]) {
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
         const result = e.target?.result as string;

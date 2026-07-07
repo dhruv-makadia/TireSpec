@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { SessionService } from './session.service';
-import { environment } from '../../environments/environment';
+import { SessionService } from '@services';
+import { environment } from '@env';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const session = inject(SessionService);
