@@ -16,7 +16,7 @@ public sealed class SessionService(IConfiguration configuration) : ISessionServi
 
         Guid userSessionId = Guid.NewGuid();
         DateTimeOffset expire = DateTimeOffset.UtcNow.AddMinutes(GetSessionLifetimeMinutes());
-        string jwt = CreateJsonWebToken(userSessionId, expire);
+        string jwt = CreateJsonWebToken(userSessionId, websiteId, expire);
         string? connectionString = configuration.GetConnectionString("TireSpec");
 
         if (string.IsNullOrWhiteSpace(connectionString)) throw new SessionCreationException("TireSpec database connection string is not configured.");
@@ -53,7 +53,7 @@ public sealed class SessionService(IConfiguration configuration) : ISessionServi
         return new CreateSessionResponse(expire, jwt);
     }
 
-    private string CreateJsonWebToken(Guid userSessionId, DateTimeOffset expire)
+    private string CreateJsonWebToken(Guid userSessionId, Guid websiteId, DateTimeOffset expire)
     {
         string? secret = configuration["Session:JwtSecret"];
 
@@ -68,6 +68,7 @@ public sealed class SessionService(IConfiguration configuration) : ISessionServi
             Claims = new Dictionary<string, object>
             {
                 ["UserSessionID"] = userSessionId.ToString("D"),
+                ["WebsiteID"] = websiteId.ToString("D"),
                 ["expire"] = expire.UtcDateTime.ToString("O")
             },
             Expires = expire.UtcDateTime,

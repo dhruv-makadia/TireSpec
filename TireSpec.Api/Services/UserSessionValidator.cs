@@ -16,7 +16,7 @@ public sealed class UserSessionValidator(IConfiguration configuration, ILogger<U
         }
 
         await using SqlConnection connection = new SqlConnection(_connectionString);
-        await using SqlCommand command = new SqlCommand("TireSpec.UserSessionExists", connection)
+        await using SqlCommand command = new SqlCommand("TireSpec.UserSessionSearch", connection)
         {
             CommandType = CommandType.StoredProcedure
         };
