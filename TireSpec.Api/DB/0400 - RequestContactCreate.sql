@@ -53,7 +53,6 @@ BEGIN
 			, VehicleOwnerName
 			, VehicleOwnerPhone
 			, VehicleOwnerEmail
-			, CreatedAt
 		)
 		VALUES
 		(
@@ -61,7 +60,6 @@ BEGIN
 			, @VehicleOwnerName
 			, @VehicleOwnerPhone
 			, @VehicleOwnerEmail
-			, GETDATE()
 		)
 	END TRY
 	BEGIN CATCH
