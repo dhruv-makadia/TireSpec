@@ -25,6 +25,7 @@ import { CheckboxComponent } from '@shared/checkbox/checkbox.component';
 export class QuoteTabComponent {
   readonly quoteData = input.required<QuoteResponse>();
   readonly scanData = input.required<TireScanResponse>();
+  readonly capturedImage = input<string | null>(null);
   readonly restart = output<void>();
 
   readonly selectedTires = signal<Set<string>>(new Set());

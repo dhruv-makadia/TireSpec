@@ -48,6 +48,7 @@
           @if (scanResult()) {
             <app-identify-tab
               [scanResult]="scanResult()!"
+              [capturedImage]="capturedImage()"
               (confirmed)="onTireConfirmed($event)"
               (rescan)="onRescan()"
             />
@@ -58,6 +59,7 @@
             <app-quote-tab
               [quoteData]="quoteResult()!"
               [scanData]="scanResult()!"
+              [capturedImage]="capturedImage()"
               (restart)="onRestart()"
             />
           }

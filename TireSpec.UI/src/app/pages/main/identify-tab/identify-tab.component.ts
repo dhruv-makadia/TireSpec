@@ -15,6 +15,7 @@ import { ButtonComponent } from '@shared/button/button.component';
 })
 export class IdentifyTabComponent implements OnInit {
   readonly scanResult = input.required<TireScanResponse>();
+  readonly capturedImage = input<string | null>(null);
   readonly confirmed = output<QuoteRequest>();
   readonly rescan = output<void>();
 

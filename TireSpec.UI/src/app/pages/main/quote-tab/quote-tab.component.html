@@ -1,4 +1,10 @@
 <div class="quote-content">
+  @if (capturedImage()) {
+    <div class="image-container">
+      <img [src]="capturedImage()" alt="Captured tire" class="tire-image" />
+    </div>
+  }
+
   <!-- Tire Specs -->
   <app-tire-specs [scanData]="scanData()"></app-tire-specs>
 

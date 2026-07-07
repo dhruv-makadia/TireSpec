@@ -6,6 +6,21 @@
   gap: 8px;
 }
 
+.image-container {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.tire-image {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
 .confirm-banner-wrapper {
   margin-bottom: 8px;
   width: 100%;
@@ -45,4 +60,3 @@
     width: 100%;
   }
 }
-
