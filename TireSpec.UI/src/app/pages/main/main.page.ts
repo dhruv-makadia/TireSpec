@@ -104,16 +104,26 @@ export class MainPage implements OnInit {
 
   onManualDataSubmitted(tireData: TireData): void {
     this.loading.set(true);
-    this.tireScanService.scanTire({ manualData: tireData }).subscribe({
+    this.quoteService.getQuote(tireData).subscribe({
       next: (result) => {
         this.loading.set(false);
-        this.scanResult.set(result);
-        this.currentStep.set(2);
-        this.stepperStep.set(3);
+        this.quoteResult.set(result);
+        this.scanResult.set({
+          imageDataUrl: null,
+          brand: tireData.brand,
+          model: tireData.model,
+          tireSize: tireData.tireSize,
+          dotCode: tireData.dotCode,
+          dotYear: tireData.dotYear,
+          loadIndex: tireData.loadIndex,
+          speedRating: tireData.speedRating,
+        });
+        this.currentStep.set(3);
+        this.stepperStep.set(4);
       },
       error: () => {
         this.loading.set(false);
-        this.snackBar.open('Failed to process tire data. Please try again.', 'OK', {
+        this.snackBar.open('Failed to get quote. Please try again.', 'OK', {
           duration: 4000,
         });
       },
