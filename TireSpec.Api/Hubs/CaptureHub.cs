@@ -4,33 +4,33 @@ namespace TireSpec.Api.Hubs;
 
 public sealed class CaptureHub : Hub
 {
-    public async Task JoinSession(string sessionId)
+    public async Task JoinSession(string jwt)
     {
-        await Groups.AddToGroupAsync(Context.ConnectionId, sessionId);
-        await Clients.Group(sessionId).SendAsync("CaptureStatus", new
+        await Groups.AddToGroupAsync(Context.ConnectionId, jwt);
+        await Clients.Group(jwt).SendAsync("CaptureStatus", new
         {
-            sessionId,
+            jwt,
             status = "connected",
             connectionId = Context.ConnectionId
         });
     }
 
-    public async Task LeaveSession(string sessionId)
+    public async Task LeaveSession(string jwt)
     {
-        await Groups.RemoveFromGroupAsync(Context.ConnectionId, sessionId);
-        await Clients.Group(sessionId).SendAsync("CaptureStatus", new
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, jwt);
+        await Clients.Group(jwt).SendAsync("CaptureStatus", new
         {
-            sessionId,
+            jwt,
             status = "disconnected",
             connectionId = Context.ConnectionId
         });
     }
 
-    public async Task TriggerQuoteOnDesktop(string sessionId, Contracts.QuoteRequest quoteRequest)
+    public async Task TriggerQuoteOnDesktop(string jwt, Contracts.QuoteRequest quoteRequest)
     {
-        await Clients.Group(sessionId).SendAsync("QuoteRequestTriggered", new
+        await Clients.Group(jwt).SendAsync("QuoteRequestTriggered", new
         {
-            sessionId,
+            jwt,
             quoteRequest
         });
     }

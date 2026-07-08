@@ -18,23 +18,6 @@ import * as signalR from '@microsoft/signalr';
 import { environment } from '@env';
 import { SuccessCountdownComponent } from '@shared/success-countdown/success-countdown.component';
 
-function parseJwt(token: string): any {
-  try {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(
-      window
-        .atob(base64)
-        .split('')
-        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join(''),
-    );
-    return JSON.parse(jsonPayload);
-  } catch (e) {
-    return null;
-  }
-}
-
 @Component({
   selector: 'app-main-page',
   standalone: true,
@@ -69,7 +52,7 @@ export class MainPage implements OnInit {
   readonly isSharedSession = signal(false);
   readonly manualQuoteSent = signal(false);
   private hubConnection: signalR.HubConnection | null = null;
-  private sessionIdForHub = '';
+  private tokenForHub = '';
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -89,14 +72,10 @@ export class MainPage implements OnInit {
 
     if (token && guid) {
       this.isSharedSession.set(true);
-      const parsed = parseJwt(token);
-      if (parsed && parsed.expire) this.sessionService.storeToken(token, parsed.expire);
-
+      this.sessionService.storeToken(token);
       this.sessionReady.set(true);
-      if (parsed && parsed.UserSessionID) {
-        this.sessionIdForHub = parsed.UserSessionID;
-        this.setupSignalR(this.sessionIdForHub);
-      }
+      this.tokenForHub = token;
+      this.setupSignalR(token);
 
       this.router.navigate([], {
         relativeTo: this.route,
@@ -110,8 +89,8 @@ export class MainPage implements OnInit {
   @HostListener('window:beforeunload', ['$event'])
   onBeforeUnload(event: BeforeUnloadEvent) {
     if (this.hubConnection) {
-      if (this.sessionIdForHub)
-        this.hubConnection.invoke('LeaveSession', this.sessionIdForHub).catch(() => {});
+      if (this.tokenForHub)
+        this.hubConnection.invoke('LeaveSession', this.tokenForHub).catch(() => {});
 
       this.hubConnection.stop();
     }
@@ -126,11 +105,8 @@ export class MainPage implements OnInit {
 
         const token = this.sessionService.getToken();
         if (token) {
-          const parsed = parseJwt(token);
-          if (parsed && parsed.UserSessionID) {
-            this.sessionIdForHub = parsed.UserSessionID;
-            this.setupSignalR(this.sessionIdForHub);
-          }
+          this.tokenForHub = token;
+          this.setupSignalR(this.tokenForHub);
         }
       },
       error: (err) => {
@@ -196,9 +172,9 @@ export class MainPage implements OnInit {
   }
 
   onConfirmOnDesktop(quoteRequest: QuoteRequest): void {
-    if (this.hubConnection && this.sessionIdForHub) {
+    if (this.hubConnection && this.tokenForHub) {
       this.hubConnection
-        .invoke('TriggerQuoteOnDesktop', this.sessionIdForHub, quoteRequest)
+        .invoke('TriggerQuoteOnDesktop', this.tokenForHub, quoteRequest)
         .then(() => {
           // Handled on mobile page to show countdown/success UI
         })
