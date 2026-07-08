@@ -13,59 +13,83 @@
     </div>
     <app-footer />
   } @else if (sessionReady()) {
-    <app-step-progress [currentStep]="stepperStep()" />
+    @if (isDesktopLocked()) {
+      <div class="mobile-connected-overlay">
+        <mat-icon class="lock-icon">phone_android</mat-icon>
+        <h2>Mobile Connected</h2>
+        <p class="lock-message">
+          Mobile connected if want to continue identify tire in mobile and opt to come back to
+          desktop OR want to analyze another tire or want to forcefully start another session on
+          destop then refresh.
+        </p>
 
-    <div class="tab-content">
-      @if (loading()) {
-        <div class="loading-overlay">
-          <mat-spinner diameter="36"></mat-spinner>
-          <span>Processing...</span>
+        <div class="lock-actions">
+          <app-button (btnClick)="onForceNewSession()" icon="refresh" [fullWidth]="true">
+            Start New Session
+          </app-button>
         </div>
-      }
+      </div>
+    } @else {
+      <app-step-progress [currentStep]="stepperStep()" />
 
-      @switch (currentStep()) {
-        @case (1) {
-          <app-snap-tab
-            [capturedImage]="capturedImage()"
-            (imageSelected)="onImageSelected($event)"
-            (manualDataSubmitted)="onManualDataSubmitted($event)"
-            (changeImage)="onChangeImage()"
-          />
-          @if (capturedImage()) {
-            <div class="identify-action">
-              <app-button
-                [fullWidth]="true"
-                (btnClick)="onIdentifyTire()"
-                [disabled]="loading()"
-                icon="search"
-              >
-                Identify My Tire
-              </app-button>
-            </div>
+      <div class="tab-content">
+        @if (loading()) {
+          <div class="loading-overlay">
+            <mat-spinner diameter="36"></mat-spinner>
+            <span>Processing...</span>
+          </div>
+        }
+
+        @switch (currentStep()) {
+          @case (1) {
+            @if (manualQuoteSent()) {
+              <app-success-countdown (countdownFinished)="onCountdownFinished()" />
+            } @else {
+              <app-snap-tab
+                [capturedImage]="capturedImage()"
+                (imageSelected)="onImageSelected($event)"
+                (changeImage)="onChangeImage()"
+              />
+              @if (capturedImage()) {
+                <div class="identify-action">
+                  <app-button
+                    [fullWidth]="true"
+                    (btnClick)="onIdentifyTire()"
+                    [disabled]="loading()"
+                    icon="search"
+                  >
+                    Identify My Tire
+                  </app-button>
+                </div>
+              }
+            }
+          }
+          @case (2) {
+            @if (scanResult()) {
+              <app-identify-tab
+                [scanResult]="scanResult()!"
+                [capturedImage]="capturedImage()"
+                [isSharedSession]="isSharedSession()"
+                (confirmed)="onTireConfirmed($event)"
+                (confirmOnDesktop)="onConfirmOnDesktop($event)"
+                (countdownFinished)="onCountdownFinished()"
+                (rescan)="onRescan()"
+              />
+            }
+          }
+          @case (3) {
+            @if (quoteResult() && scanResult()) {
+              <app-quote-tab
+                [quoteData]="quoteResult()!"
+                [scanData]="scanResult()!"
+                [capturedImage]="capturedImage()"
+                (restart)="onRestart()"
+              />
+            }
           }
         }
-        @case (2) {
-          @if (scanResult()) {
-            <app-identify-tab
-              [scanResult]="scanResult()!"
-              [capturedImage]="capturedImage()"
-              (confirmed)="onTireConfirmed($event)"
-              (rescan)="onRescan()"
-            />
-          }
-        }
-        @case (3) {
-          @if (quoteResult() && scanResult()) {
-            <app-quote-tab
-              [quoteData]="quoteResult()!"
-              [scanData]="scanResult()!"
-              [capturedImage]="capturedImage()"
-              (restart)="onRestart()"
-            />
-          }
-        }
-      }
-    </div>
+      </div>
+    }
 
     <app-footer />
   }

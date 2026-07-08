@@ -15,11 +15,13 @@ export class SessionService {
     const body: CreateSessionRequest = { websiteId };
     return this.http
       .post<CreateSessionResponse>(`${this.apiUrl}/create`, body)
-      .pipe(tap((response) => this.storeToken(response.jwt, response.expire)));
+      .pipe(tap((response) => this.storeToken(response.jwt)));
   }
 
   getToken(): string | null {
-    const match = new RegExp(new RegExp(`(?:^|; )${this.cookieName}=([^;]*)`)).exec(document.cookie);
+    const match = new RegExp(new RegExp(`(?:^|; )${this.cookieName}=([^;]*)`)).exec(
+      document.cookie,
+    );
     return match ? decodeURIComponent(match[1]) : null;
   }
 
@@ -31,8 +33,11 @@ export class SessionService {
     document.cookie = `${this.cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict`;
   }
 
-  private storeToken(jwt: string, expire: string): void {
-    const expireDate = new Date(expire);
-    document.cookie = `${this.cookieName}=${encodeURIComponent(jwt)}; path=/; expires=${expireDate.toUTCString()}; SameSite=Strict`;
+  storeToken(jwt: string): void {
+    let cookieStr = `${this.cookieName}=${encodeURIComponent(jwt)}; path=/; SameSite=Strict`;
+    const expireDate = new Date();
+    expireDate.setMinutes(expireDate.getMinutes() + environment.LifetimeMinutes);
+    cookieStr += `; expires=${expireDate.toUTCString()}`;
+    document.cookie = cookieStr;
   }
 }

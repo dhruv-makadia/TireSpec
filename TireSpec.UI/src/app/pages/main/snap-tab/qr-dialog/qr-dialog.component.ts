@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy, ElementRef, viewChild, signal } from '@angular/core';
+import { Component, OnInit, ElementRef, viewChild, signal } from '@angular/core';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import * as QRCode from 'qrcode';
-import * as signalR from '@microsoft/signalr';
 import { environment } from '@env';
-import { v4 as uuidv4 } from 'uuid';
 import { DialogLayoutComponent } from '@shared/dialog-layout/dialog-layout.component';
 import { ButtonComponent } from '@shared/button/button.component';
+import { ActivatedRoute } from '@angular/router';
+import { SessionService } from '@services';
 
 @Component({
   selector: 'app-qr-dialog',
@@ -22,62 +22,35 @@ import { ButtonComponent } from '@shared/button/button.component';
   templateUrl: './qr-dialog.component.html',
   styleUrl: './qr-dialog.component.scss',
 })
-export class QrDialogComponent implements OnInit, OnDestroy {
+export class QrDialogComponent implements OnInit {
   readonly qrCanvas = viewChild<ElementRef<HTMLCanvasElement>>('qrCanvas');
-  private hubConnection: signalR.HubConnection | null = null;
-  readonly status = signal<'generating' | 'waiting' | 'connected' | 'received'>('generating');
-  private sessionKey = '';
+  readonly status = signal<'generating' | 'waiting'>('generating');
 
-  constructor(private readonly dialogRef: MatDialogRef<QrDialogComponent>) {}
+  constructor(
+    private readonly dialogRef: MatDialogRef<QrDialogComponent>,
+    private readonly sessionService: SessionService,
+    private readonly route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.sessionKey = this.generateSessionKey();
-    this.setupSignalR();
     // QR generation happens after view init
     setTimeout(() => this.generateQR(), 100);
-  }
-
-  ngOnDestroy(): void {
-    this.hubConnection?.stop();
-  }
-
-  private generateSessionKey(): string {
-    return uuidv4();
   }
 
   private async generateQR(): Promise<void> {
     const canvas = this.qrCanvas()?.nativeElement;
     if (!canvas) return;
 
-    const captureUrl = `${environment.appBaseUrl}/capture?key=${this.sessionKey}`;
+    const token = this.sessionService.getToken() || '';
+    const guid = this.route.snapshot.queryParamMap.get('guid') || '';
+    const captureUrl = `${environment.appBaseUrl}/?guid=${guid}&token=${token}`;
+
     await QRCode.toCanvas(canvas, captureUrl, {
       width: 200,
       margin: 2,
       color: { dark: '#1a2332', light: '#ffffff' },
     });
     this.status.set('waiting');
-  }
-
-  private setupSignalR(): void {
-    this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${environment.hubBaseUrl}/capture`)
-      .withAutomaticReconnect()
-      .build();
-
-    this.hubConnection.on('CaptureStatus', (data: { status: string }) => {
-      if (data.status === 'connected') {
-        this.status.set('connected');
-      }
-    });
-
-    this.hubConnection.on('TirePhotoCaptured', (data: { imageDataUrl: string }) => {
-      this.status.set('received');
-      setTimeout(() => this.dialogRef.close(data.imageDataUrl), 500);
-    });
-
-    this.hubConnection.start().then(() => {
-      this.hubConnection?.invoke('JoinSession', this.sessionKey);
-    });
   }
 
   close(): void {
