@@ -26,13 +26,12 @@ public sealed class CaptureHub : Hub
         });
     }
 
-    public async Task SubmitPhoto(string sessionId, string imageDataUrl)
+    public async Task TriggerQuoteOnDesktop(string sessionId, Contracts.QuoteRequest quoteRequest)
     {
-        await Clients.Group(sessionId).SendAsync("TirePhotoCaptured", new
+        await Clients.Group(sessionId).SendAsync("QuoteRequestTriggered", new
         {
             sessionId,
-            imageDataUrl,
-            capturedAt = DateTimeOffset.UtcNow
+            quoteRequest
         });
     }
 }

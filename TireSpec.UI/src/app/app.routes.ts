@@ -6,9 +6,4 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/main/main.page').then((m) => m.MainPage),
   },
-  {
-    path: 'capture',
-    loadComponent: () =>
-      import('./pages/capture/capture.page').then((m) => m.CapturePage),
-  },
 ];

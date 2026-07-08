@@ -31,7 +31,7 @@ export class SessionService {
     document.cookie = `${this.cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict`;
   }
 
-  private storeToken(jwt: string, expire: string): void {
+  storeToken(jwt: string, expire: string): void {
     const expireDate = new Date(expire);
     document.cookie = `${this.cookieName}=${encodeURIComponent(jwt)}; path=/; expires=${expireDate.toUTCString()}; SameSite=Strict`;
   }
