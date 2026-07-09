@@ -72,7 +72,7 @@ export class MainPage implements OnInit {
 
     if (token && guid) {
       this.isSharedSession.set(true);
-      this.sessionService.storeToken(token);
+      this.sessionService.storeToken(token, guid);
       this.sessionReady.set(true);
       this.tokenForHub = token;
       this.setupSignalR(token);
@@ -103,7 +103,7 @@ export class MainPage implements OnInit {
         this.loading.set(false);
         this.sessionReady.set(true);
 
-        const token = this.sessionService.getToken();
+        const token = this.sessionService.getToken(guid);
         if (token) {
           this.tokenForHub = token;
           this.setupSignalR(this.tokenForHub);
