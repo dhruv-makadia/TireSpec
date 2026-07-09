@@ -41,8 +41,8 @@ export class QrDialogComponent implements OnInit {
     const canvas = this.qrCanvas()?.nativeElement;
     if (!canvas) return;
 
-    const token = this.sessionService.getToken() || '';
     const guid = this.route.snapshot.queryParamMap.get('guid') || '';
+    const token = this.sessionService.getToken(guid) || '';
     const captureUrl = `${environment.appBaseUrl}/?guid=${guid}&token=${token}`;
 
     await QRCode.toCanvas(canvas, captureUrl, {
